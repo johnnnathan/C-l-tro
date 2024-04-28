@@ -16,6 +16,17 @@ const int8_t STONE = 7;
 const int8_t GOLD = 8;
 const int8_t LUCKY = 9;
 
+const int8_t NO_EDITION = 1;
+const int8_t FOIL = 2;
+const int8_t HOLOGRAPHIC = 3;
+const int8_t POLYCHROME = 4;
+
+const int8_t NO_SEAL = 1;
+const int8_t GOLD_SEAL = 2;
+const int8_t RED_SEAL = 3;
+const int8_t BLUE_SEAL = 4;
+const int8_t PURPLE_SEAL = 5;
+
 void setError(std::string valueType, int rangeEnd);
 int int_to_hex(int value);
 class playingCard{
