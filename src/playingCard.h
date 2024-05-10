@@ -1,6 +1,7 @@
 #ifndef PLAYINGCARD_H
 #define PLAYINGCARD_H
 
+#include "tools.h"
 #include <cstdint>
 #include <iomanip>
 #include <ios>

@@ -64,7 +64,7 @@ void Deck::removeCard(int cardID){
     newDeck[newDeckCounter] = deck[cardCount];
     newDeckCounter += 1;
   }
-  deckSize -= 1;
+  alterDeckSize(-1);
 }
 int Deck::getDeckSize(){
   return deckSize;

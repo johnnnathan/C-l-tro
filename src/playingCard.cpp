@@ -1,9 +1,6 @@
 #include <cstdint>
-#include <iomanip>
-#include <ios>
-#include <iostream>
-#include <sstream>
 #include <stdint.h>
+#include <string>
 
 int globalID {};
 const int8_t NO_ENHANCEMENT = 1;
@@ -74,6 +71,7 @@ void playingCard::setSuit(int8_t suit){
     return;
   }
   int mask = int_to_hex(suit);
+  data &= (0b11 << 14);
   data |= (mask << 14); 
 }
 
@@ -123,12 +121,4 @@ void setError(std::string valueType, int rangeEnd){
 }
 
 
-int int_to_hex(int value){
-  std::stringstream ss;
-  ss << std::setw(2) << std::setfill('0') << std::hex << static_cast<int>(value);
-  std::string hexString = ss.str();
-  int mask;
-  std::istringstream(hexString) >> std::hex >> mask;
-  return mask;
-}
 
