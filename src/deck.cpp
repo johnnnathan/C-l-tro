@@ -1,4 +1,5 @@
 #include "playingCard.h"
+#include <stdexcept>
 
 class Deck{
 private:
@@ -12,6 +13,7 @@ public:
   void alterDeckSize(int change);
   Deck(int size);
   ~Deck();
+  playingCard* operator[](int index) const;
 
 };
 
@@ -72,4 +74,11 @@ int Deck::getDeckSize(){
 
 void Deck::alterDeckSize(int change){
   deckSize += change;
+}
+
+playingCard* Deck::operator[](int index) const {
+  if (index < 0 || index >= deckSize){
+    throw std::out_of_range("Index out of range");
+  }
+  return deck[index];
 }

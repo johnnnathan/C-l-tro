@@ -1,6 +1,8 @@
 #include <cstdint>
 #include <stdint.h>
 #include <string>
+#include <iostream>
+#include <cstdio>
 
 int globalID {};
 const int8_t NO_ENHANCEMENT = 1;
@@ -39,15 +41,26 @@ class playingCard{
   void setSeal(int8_t seal);
   void setScore(int8_t score);
   int getID();
-  int8_t getSuit();
-  int8_t getRank();
-  int8_t getEnhancement();
-  int8_t getEdition();
-  int8_t getSeal();
+  int8_t getSuit() const;
+  int8_t getRank() const;
+  int8_t getEnhancement() const;
+  int8_t getEdition() const;
+  int8_t getSeal() const;
   playingCard(int8_t rank, int8_t suit, int8_t enhancement, int8_t edition, int8_t seal);
   unsigned short int getData();
+  friend std::ostream& operator<<(std::ostream& os, const playingCard& card);
 
 };
+
+std::ostream& operator<<(std::ostream& os, const playingCard& card){
+  os <<  "Rank: " << static_cast<int>(card.getRank()) 
+     << " Suit: " << static_cast<int>(card.getSuit()) 
+     << " Enhancement: " << static_cast<int>(card.getEnhancement())
+     << " Edition: " << static_cast<int>(card.getEdition()) 
+     << " Seal: " << static_cast<int>(card.getSeal());
+  return os;
+}
+
 
 playingCard::playingCard(int8_t rank, int8_t suit, int8_t enhancement, int8_t edition, int8_t seal) {
     id = globalID; // Increment globalID and assign it to id
@@ -71,7 +84,7 @@ void playingCard::setSuit(int8_t suit){
     return;
   }
   int mask = int_to_hex(suit);
-  data &= (0b11 << 14);
+  data &= ~(0b11 << 14);
   data |= (mask << 14); 
 }
 
@@ -85,6 +98,7 @@ void playingCard::setRank(int8_t rank){
   data |= (mask << 10);
 
 }
+
 
 void playingCard::setEnhancement(int8_t enhancement){
   if (enhancement > 9 || enhancement < 1){
@@ -113,8 +127,31 @@ void playingCard::setSeal(int8_t seal){
   
   int mask = int_to_hex(seal);
   data &= ~(0b111 << 0);
-  data |= (seal << 3);
+  data |= seal;
 }
+
+
+int8_t playingCard::getSuit() const{
+  return (data >> 14) & 0b11;
+}
+
+int8_t playingCard::getRank() const{
+    return (data >> 10) & 0b1111;
+}
+
+int8_t playingCard::getEnhancement() const{
+    return (data >> 6) & 0b1111;
+}
+
+int8_t playingCard::getEdition() const{
+    return (data >> 3) & 0b111;
+}
+
+int8_t playingCard::getSeal() const{
+    return data & 0b111;
+}
+
+
 
 void setError(std::string valueType, int rangeEnd){
   printf("%s VALUE IS NOT IN THE ACCEPTABLE RANGE, IS OUTSIDE OF [1,%d]", valueType.c_str(),rangeEnd);
