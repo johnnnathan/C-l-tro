@@ -15,8 +15,8 @@ public:
   void setRarity(int rarity);
   void setActivateOn(int activation_code);
   Joker(int activation_code, int rarity, int edition);
-
 };
+
 
 void Joker::setEdition(int edition){
   if (edition < 1 || edition > 5){
@@ -27,6 +27,8 @@ void Joker::setEdition(int edition){
   data |= (mask << 5);
 
 }
+
+
 void Joker::setRarity(int rarity){
   if (rarity < 1||rarity > 4){
     return;

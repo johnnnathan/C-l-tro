@@ -16,7 +16,6 @@ public:
   Deck(int size);
   ~Deck();
   playingCard* operator[](int index) const;
-
 };
 
 #endif 

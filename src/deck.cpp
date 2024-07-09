@@ -77,8 +77,8 @@ void Deck::alterDeckSize(int change){
 }
 
 playingCard* Deck::operator[](int index) const {
-  if (index < 0 || index >= deckSize){
-    throw std::out_of_range("Index out of range");
-  }
-  return deck[index];
+    if (index < 0 || index >= deckSize) {
+        throw std::out_of_range("Index out of range");
+    }
+    return deck[index];
 }

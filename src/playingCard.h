@@ -1,14 +1,11 @@
 #ifndef PLAYINGCARD_H
 #define PLAYINGCARD_H
 
-#include "tools.h"
 #include <cstdint>
-#include <iomanip>
-#include <ios>
-#include <iostream>
-#include <sstream>
 #include <stdint.h>
-
+#include <string>
+#include <iostream>
+#include <cstdio>
 
 const int8_t NO_ENHANCEMENT = 1;
 const int8_t BONUS = 2;
@@ -33,8 +30,6 @@ const int8_t PURPLE_SEAL = 5;
 
 void setError(std::string valueType, int rangeEnd);
 int int_to_hex(int value);
-
-
 class playingCard{
   private:
   int id;
@@ -48,12 +43,15 @@ class playingCard{
   void setSeal(int8_t seal);
   void setScore(int8_t score);
   int getID();
-  int8_t getSuit();
-  int8_t getRank();
-  int8_t getEnhancement();
-  int8_t getEdition();
-  int8_t getSeal();
+  int8_t getSuit() const;
+  int8_t getRank() const;
+  int8_t getEnhancement() const;
+  int8_t getEdition() const;
+  int8_t getSeal() const;
   playingCard(int8_t rank, int8_t suit, int8_t enhancement, int8_t edition, int8_t seal);
+  unsigned short int getData();
+  friend std::ostream& operator<<(std::ostream& os, const playingCard& card);
+  std::string toString() const;
 
 };
 
