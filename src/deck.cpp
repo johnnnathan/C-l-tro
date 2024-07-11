@@ -1,23 +1,4 @@
-#include "playingCard.h"
-#include <stdexcept>
-
-class Deck{
-private:
-  playingCard** deck ;
-  int deckSize;
-public:
-  void addCard(playingCard* card);
-  void removeCard(int cardID);
-  void populateBoard();
-  int getDeckSize();
-  void alterDeckSize(int change);
-  void printDeck();
-  Deck(int size);
-  ~Deck();
-  playingCard* operator[](int index) const;
-
-
-};
+#include "deck.h"
 
 Deck::Deck(int size){
   deck = new playingCard*[size];
@@ -30,7 +11,7 @@ Deck::~Deck(){
   delete deck;
 }
 
-void Deck::printDeck(){
+void Deck::toString(){
   int size = this->getDeckSize();
   for (int i = 0; i < size; i++){
     std::cout << *(deck[i]) << std::endl;

@@ -13,10 +13,12 @@ public:
   void populateBoard();
   int getDeckSize();
   void alterDeckSize(int change);
-  void printDeck();
+  void toString();
   Deck(int size);
   ~Deck();
   playingCard* operator[](int index) const;
+
+
 };
 
 #endif 

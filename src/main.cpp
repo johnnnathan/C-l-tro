@@ -5,7 +5,7 @@
 int main (int argc, char *argv[]) {
   Deck deck(52);  
   deck.populateBoard();
-  deck.printDeck();
+  deck.toString();
 
   return 0;
 }
