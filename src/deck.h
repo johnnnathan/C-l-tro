@@ -13,6 +13,7 @@ public:
   void populateBoard();
   int getDeckSize();
   void alterDeckSize(int change);
+  void printDeck();
   Deck(int size);
   ~Deck();
   playingCard* operator[](int index) const;

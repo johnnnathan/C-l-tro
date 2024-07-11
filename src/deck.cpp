@@ -11,9 +11,11 @@ public:
   void populateBoard();
   int getDeckSize();
   void alterDeckSize(int change);
+  void printDeck();
   Deck(int size);
   ~Deck();
   playingCard* operator[](int index) const;
+
 
 };
 
@@ -26,6 +28,13 @@ Deck::~Deck(){
     delete deck[card];
   }
   delete deck;
+}
+
+void Deck::printDeck(){
+  int size = this->getDeckSize();
+  for (int i = 0; i < size; i++){
+    std::cout << *(deck[i]) << std::endl;
+  }
 }
 void Deck::populateBoard(){
   int counter = 0;
