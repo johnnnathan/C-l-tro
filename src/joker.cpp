@@ -1,11 +1,8 @@
-#include "tools.h"
 #include <cstdint>
 #include <iostream>
 #include "joker.h"
+#include "tools.h"
 
-const uint8_t EDITION_MASK = 0b11100000;
-const uint8_t RARITY_MASK = 0b00001100;
-const uint8_t ACTIVATION_CODE_MASK = 0b00000011;
 
 Joker::Joker(int activation_code, int rarity, int edition){
   data = 0;
@@ -17,6 +14,7 @@ void Joker::setEdition(int edition){
   if (edition < 1 || edition > 5){
     return;
   }
+  if (checkRange(1, 5, edition))  
   data &= ~EDITION_MASK;
   data |= (edition << 5);
 

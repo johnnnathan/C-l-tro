@@ -1,5 +1,13 @@
+#ifndef JOKER_H
+#define JOKER_H
+
+#define JOKER_H
 #include <cstdint>
 #include <string>
+
+const uint8_t EDITION_MASK = 0b11100000;
+const uint8_t RARITY_MASK = 0b00001100;
+const uint8_t ACTIVATION_CODE_MASK = 0b00000011;
 
 class Joker{
 private:
@@ -21,3 +29,5 @@ public:
 
   Joker(int activation_code, int rarity, int edition);
 };
+
+#endif // JOKER_H
