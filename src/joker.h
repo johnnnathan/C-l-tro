@@ -5,9 +5,15 @@
 #include <cstdint>
 #include <string>
 
+const std::string OUT_OF_RANGE_ERROR = "The given value is out of range";
+
 const uint8_t EDITION_MASK = 0b11100000;
 const uint8_t RARITY_MASK = 0b00001100;
 const uint8_t ACTIVATION_CODE_MASK = 0b00000011;
+
+const int EDITION_SHIFT = 5;
+const int RARITY_SHIFT = 2;
+const int ACTIVATION_SHIFT = 0;
 
 class Joker{
 private:

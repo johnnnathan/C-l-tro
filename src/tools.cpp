@@ -1,6 +1,7 @@
 
 #include "tools.h"
 #include "playingCard.h"
+#include <cstdint>
 #include <iomanip>
 #include <sstream>
 
@@ -20,18 +21,33 @@ bool checkRange(int min, int max, int value){
   return true;
 }
 
+void printError(std::string error){
+  std::cout << error << '\n';
+
+}
+
 template <typename T>
-void setBits(T& data, T value, T mask, int shift){
+void clearAndSet(T& data, int value, uint8_t mask, int shift){
+  clearBits(data, mask);
+  setBits(data,value,mask,shift);
+}
+
+
+template <typename T>
+void setBits(T& data, int value, uint8_t mask, int shift){
   data |= (value << shift) & mask;
 }
 
 template <typename T>
-void clearBits(T& data, T mask){
+void clearBits(T& data, uint8_t mask){
   data &= ~mask;
 }
 
-template void clearBits<uint8_t>(uint8_t& data, uint8_t mask);
-template void setBits<uint8_t>(uint8_t& data, uint8_t value,  uint8_t mask,int shift);
+template void clearAndSet<uint8_t>(uint8_t& data, int value, uint8_t mask, int shift);
+template void clearAndSet<short int>(short int& data, int value, uint8_t mask, int shift);
 
-template void clearBits<short int>(short int& data, short int mask);
-template void setBits<short int>(short int& data, short int value, short int mask, int shift);
+template void clearBits<uint8_t>(uint8_t& data, uint8_t mask);
+template void setBits<uint8_t>(uint8_t& data, int value,  uint8_t mask,int shift);
+
+template void clearBits<short int>(short int& data, uint8_t mask);
+template void setBits<short int>(short int& data, int value, uint8_t mask, int shift);

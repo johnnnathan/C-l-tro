@@ -11,24 +11,22 @@ Joker::Joker(int activation_code, int rarity, int edition){
   setEdition(edition);
 }
 void Joker::setEdition(int edition){
-  if (edition < 1 || edition > 5){
+  if (!checkRange(1, 5, edition)){
+    printError(OUT_OF_RANGE_ERROR); 
     return;
-  }
-  if (checkRange(1, 5, edition))  
-  data &= ~EDITION_MASK;
-  data |= (edition << 5);
-
+  } 
+  clearAndSet(data, edition, EDITION_MASK, EDITION_SHIFT);
 }
 
 std::string Joker::getDescription(){
   return description;
 }
 int Joker::getEdition(){
-  return (data >> 5) & 0b111;
+  return (data >> EDITION_SHIFT) & 0b111;
 } 
 
 int Joker::getRarity(){
-  return (data >> 2) & 0b11;
+  return (data >> RARITY_SHIFT) & 0b11;
 }
 
 int Joker::getActivatedOn(){
@@ -44,18 +42,18 @@ void Joker::toString(){
         << ", Description: " << getDescription() << "]";
 }
 void Joker::setRarity(int rarity){
-  if (rarity < 1||rarity > 4){
+  if(!checkRange(1,4,rarity)){
+    printError(OUT_OF_RANGE_ERROR); 
     return;
   }
-  data &= ~RARITY_MASK;
-  data |= (rarity << 2);
+  clearAndSet(data,rarity,RARITY_MASK, RARITY_SHIFT);
 }
 void Joker::setActivateOn(int activation_code){
-  if (activation_code < 1 || activation_code > 5){
+  if (!checkRange(1,4,activation_code)){
+    printError(OUT_OF_RANGE_ERROR); 
     return;
   }
-  data &= ~ACTIVATION_CODE_MASK;
-  data |= (activation_code & ACTIVATION_CODE_MASK);
+  clearAndSet(data, activation_code, ACTIVATION_CODE_MASK, ACTIVATION_SHIFT);
 }
 
 uint8_t Joker::getData(){
