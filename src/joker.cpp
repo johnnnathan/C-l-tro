@@ -3,15 +3,15 @@
 #include "joker.h"
 #include "tools.h"
 
-const int8_t COMMON = 0;
-const int8_t UNCOMMON = 1;
-const int8_t RARE = 2;
-const int8_t LEGENDARY = 3;
+const char COMMON = 0;
+const char UNCOMMON = 1;
+const char RARE = 2;
+const char LEGENDARY = 3;
 
-const int8_t ON_PLAYED = 0;
-const int8_t ON_SCORED = 1;
-const int8_t ON_HELD = 2;
-const int8_t ON_INDEPENDENT = 3;
+const char ON_PLAYED = 0;
+const char ON_SCORED = 1;
+const char ON_HELD = 2;
+const char ON_INDEPENDENT = 3;
 
 const char MAX_2BIT = 3;
 const char MIN_BIT = 0;

@@ -5,11 +5,11 @@
 #include <sstream>
 
 
-const int8_t NO_EDITION = 1;
-const int8_t FOIL = 2;
-const int8_t HOLOGRAPHIC = 3;
-const int8_t POLYCHROME = 4;
-const int8_t NEGATIVE = 5;
+const char NO_EDITION = 1;
+const char FOIL = 2;
+const char HOLOGRAPHIC = 3;
+const char POLYCHROME = 4;
+const char NEGATIVE = 5;
 
 
 int int_to_hex(int value);

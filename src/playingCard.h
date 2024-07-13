@@ -8,21 +8,21 @@
 #include <cstdio>
 
 
-const int8_t NO_ENHANCEMENT = 1;
-const int8_t BONUS = 2;
-const int8_t MULT = 3;
-const int8_t WILD = 4;
-const int8_t GLASS = 5;
-const int8_t STEEL = 6;
-const int8_t STONE = 7;
-const int8_t GOLD = 8;
-const int8_t LUCKY = 9;
+const char NO_ENHANCEMENT = 1;
+const char BONUS = 2;
+const char MULT = 3;
+const char WILD = 4;
+const char GLASS = 5;
+const char STEEL = 6;
+const char STONE = 7;
+const char GOLD = 8;
+const char LUCKY = 9;
 
-const int8_t NO_SEAL = 1;
-const int8_t GOLD_SEAL = 2;
-const int8_t RED_SEAL = 3;
-const int8_t BLUE_SEAL = 4;
-const int8_t PURPLE_SEAL = 5;
+const char NO_SEAL = 1;
+const char GOLD_SEAL = 2;
+const char RED_SEAL = 3;
+const char BLUE_SEAL = 4;
+const char PURPLE_SEAL = 5;
 
 void setError(std::string valueType, int rangeEnd);
 int int_to_hex(int value);

@@ -8,9 +8,9 @@
 const std::string OUT_OF_RANGE_ERROR = "The given value is out of range";
 
 
-const int EDITION_SHIFT = 4;
-const int RARITY_SHIFT = 2;
-const int ACTIVATION_SHIFT = 0;
+const char EDITION_SHIFT = 4;
+const char RARITY_SHIFT = 2;
+const char ACTIVATION_SHIFT = 0;
 
 
 const uint8_t EDITION_MASK = 0b111 << EDITION_SHIFT;
