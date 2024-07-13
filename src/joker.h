@@ -23,7 +23,7 @@ private:
   std::string description;
   uint8_t data;
   public:
-  void set(int min, int max, int value, int shift, uint8_t mask);
+  void set(int max, int value, int shift, uint8_t mask);
   void setDescription(std::string text);
   void setEdition(int edition);
   void setRarity(int rarity);

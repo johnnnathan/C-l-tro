@@ -1,12 +1,12 @@
 
 #include "tools.h"
-#include "playingCard.h"
 #include <cstdint>
-#include <iomanip>
-#include <sstream>
+#include <iostream>
 
-int int_to_hex(int value);
 
+/*
+ 
+   This method has been retired because I have found a simpler alternative, keeping this here just in case.
 int int_to_hex(int value){
   std::stringstream ss;
   ss << std::setw(2) << std::setfill('0') << std::hex << static_cast<int>(value);
@@ -15,9 +15,11 @@ int int_to_hex(int value){
   std::istringstream(hexString) >> std::hex >> mask;
   return mask;
 }
+*/
 
-bool checkRange(int min, int max, int value){
-  if (value < min || value > max) return false;
+  
+bool checkRange(int max, int value){
+  if (value < 0 || value > max) return false;
   return true;
 }
 

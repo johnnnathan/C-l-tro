@@ -14,7 +14,6 @@ const char ON_HELD = 2;
 const char ON_INDEPENDENT = 3;
 
 const char MAX_2BIT = 3;
-const char MIN_BIT = 0;
 const char MAX_3BIT = 5;
 
 
@@ -23,6 +22,15 @@ Joker::Joker(int activation_code, int rarity, int edition){
   setRarity(rarity);
   setActivateOn(activation_code);
   setEdition(edition);
+}
+
+void Joker::set(int max, int value, int shift, uint8_t mask){
+  if (!checkRange(max, value)){
+    printError(OUT_OF_RANGE_ERROR); 
+    return;
+  } 
+  clearAndSet(data, value, mask,shift);
+
 }
 
 std::string Joker::getDescription(){
@@ -45,24 +53,16 @@ uint8_t Joker::getData(){
   return data;
 }
 
-void Joker::set(int min, int max, int value, int shift, uint8_t mask){
-  if (!checkRange(min, max, value)){
-    printError(OUT_OF_RANGE_ERROR); 
-    return;
-  } 
-  clearAndSet(data, value, mask,shift);
-
-}
 
 void Joker::setEdition(int edition){
-  set(MIN_BIT, MAX_3BIT, edition, EDITION_SHIFT, EDITION_MASK);
+  set(MAX_3BIT, edition, EDITION_SHIFT, EDITION_MASK);
 }
 
 void Joker::setRarity(int rarity){
-  set(MIN_BIT,MAX_2BIT,rarity,RARITY_SHIFT,RARITY_MASK);
+  set(MAX_2BIT,rarity,RARITY_SHIFT,RARITY_MASK);
 }
 void Joker::setActivateOn(int activation_code){
-  set(MIN_BIT,MAX_2BIT,activation_code,ACTIVATION_SHIFT,ACTIVATION_CODE_MASK);
+  set(MAX_2BIT,activation_code,ACTIVATION_SHIFT,ACTIVATION_CODE_MASK);
 }
 
 void Joker::setDescription(std::string text){

@@ -5,10 +5,10 @@
 
 class Deck{
 private:
-  playingCard** deck ;
+  PlayingCard** deck ;
   int deckSize;
 public:
-  void addCard(playingCard* card);
+  void addCard(PlayingCard* card);
   void removeCard(int cardID);
   void populateBoard();
   int getDeckSize();
@@ -16,7 +16,7 @@ public:
   void toString();
   Deck(int size);
   ~Deck();
-  playingCard* operator[](int index) const;
+  PlayingCard* operator[](int index) const;
 
 
 };

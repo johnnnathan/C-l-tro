@@ -14,7 +14,7 @@ const char NEGATIVE = 5;
 
 int int_to_hex(int value);
 
-bool checkRange(int min, int max, int value);
+bool checkRange(int max, int value);
 
 void printError(std::string error);
 

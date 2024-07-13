@@ -1,7 +1,7 @@
 #include "deck.h"
 
 Deck::Deck(int size){
-  deck = new playingCard*[size];
+  deck = new PlayingCard*[size];
   deckSize = size;
 }
 Deck::~Deck(){
@@ -21,16 +21,16 @@ void Deck::populateBoard(){
   int counter = 0;
   for (int rank = 1; rank < 14; rank++){
     for (int suit = 1; suit < 5; suit++){
-      playingCard *card = new playingCard(rank,suit, NO_ENHANCEMENT, NO_EDITION, NO_SEAL);
+      PlayingCard *card = new PlayingCard(rank,suit, NO_ENHANCEMENT, NO_EDITION, NO_SEAL);
       deck[counter] = card; 
       counter += 1;
     }
   }
 }
 
-void Deck::addCard(playingCard* card){
+void Deck::addCard(PlayingCard* card){
   int deckSize = getDeckSize();
-  playingCard* newDeck [deckSize + 1];
+  PlayingCard* newDeck [deckSize + 1];
   for (int card = 0; card < deckSize; card++){
     newDeck[card] = deck[card];
   }
@@ -40,7 +40,7 @@ void Deck::addCard(playingCard* card){
   alterDeckSize(1);
 }
 void Deck::removeCard(int cardID){
-  playingCard* newDeck [deckSize - 1];
+  PlayingCard* newDeck [deckSize - 1];
   for (int cardCounter = 0; cardCounter < deckSize; cardCounter++){
     if (deck[cardCounter]->getID() == cardID){
       delete deck[cardCounter];
@@ -66,7 +66,7 @@ void Deck::alterDeckSize(int change){
   deckSize += change;
 }
 
-playingCard* Deck::operator[](int index) const {
+PlayingCard* Deck::operator[](int index) const {
     if (index < 0 || index >= deckSize) {
         throw std::out_of_range("Index out of range");
     }

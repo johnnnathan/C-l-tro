@@ -1,9 +1,21 @@
 #include "playingCard.h"
+#include "tools.h"
 
 
 int globalID = 0;
 
-std::ostream& operator<<(std::ostream& os, const playingCard& card){
+const char SUIT_SHIFT = 14;
+const char RANK_SHIFT = 10;
+const char ENHANCEMENT_SHIFT = 6;
+const char EDITION_SHIFT = 3;
+const char SEAL_SHIFT = 0;
+
+const char BIT_2MASK = 0b11;
+const char BIT_3MASK = 0b111;
+const char BIT_4MASK = 0b1111;
+
+
+std::ostream& operator<<(std::ostream& os, const PlayingCard& card){
   os <<  "Rank: " << static_cast<int>(card.getRank()) 
      << " Suit: " << static_cast<int>(card.getSuit()) 
      << " Enhancement: " << static_cast<int>(card.getEnhancement())
@@ -13,7 +25,7 @@ std::ostream& operator<<(std::ostream& os, const playingCard& card){
 }
 
 
-playingCard::playingCard(int8_t rank, int8_t suit, int8_t enhancement, int8_t edition, int8_t seal) {
+PlayingCard::PlayingCard(int8_t rank, int8_t suit, int8_t enhancement, int8_t edition, int8_t seal) {
     id = globalID; // Increment globalID and assign it to id
     globalID += 1;
     data = 0; // Initialize data
@@ -25,88 +37,55 @@ playingCard::playingCard(int8_t rank, int8_t suit, int8_t enhancement, int8_t ed
 }
 
 
-int playingCard::getID(){
+int PlayingCard::getID(){
   return id;
 }
 
-void playingCard::setSuit(int8_t suit){
-  if (suit > 4 || suit < 1){
-    setError("SUIT",4);
-    return;
-  }
-  int mask = int_to_hex(suit);
-  data &= ~(0b11 << 14);
-  data |= (mask << 14); 
-}
+void PlayingCard::set(int max, int8_t value, int shift, int mask){
+  checkRange(max,  value);
+  clearAndSet(data, value, mask, shift); 
+};
 
-void playingCard::setRank(int8_t rank){
-  if (rank > 13 || rank < 1){
-    setError("RANK", 13);
-    return;
-  }
-  int mask = int_to_hex(rank);
-  data &= ~(0b1111 << 10);
-  data |= (mask << 10);
 
+void PlayingCard::setSuit(int8_t suit){
+  set(3,suit,SUIT_SHIFT,BIT_2MASK);
 }
 
 
-void playingCard::setEnhancement(int8_t enhancement){
-  if (enhancement > 9 || enhancement < 1){
-    setError("ENHANCEMENT",9);
-    return;
-  }
-  int mask = int_to_hex(enhancement);
-  data&= ~(0b1111 << 6);
-  data |= (mask << 6);
-}
-
-void playingCard::setEdition(int8_t edition){
-  if (edition < 1 || edition > 4){
-    setError("EDITION",4);
-    return;
-  }
-  int mask = int_to_hex(edition);
-  data &= ~(0b111 << 3);
-  data |= (edition << 3);
-}
-void playingCard::setSeal(int8_t seal){
-  if (seal < 1 || seal > 5){
-    setError("SEAL",5);
-    return;
-  }
-  
-  int mask = int_to_hex(seal);
-  data &= ~(0b111 << 0);
-  data |= seal;
+void PlayingCard::setRank(int8_t rank){
+  set(12,rank, RANK_SHIFT,BIT_4MASK);
 }
 
 
-int8_t playingCard::getSuit() const{
-  return (data >> 14) & 0b11;
+void PlayingCard::setEnhancement(int8_t enhancement){
+  set(8,enhancement,ENHANCEMENT_SHIFT,BIT_4MASK);
 }
 
-int8_t playingCard::getRank() const{
-    return (data >> 10) & 0b1111;
+void PlayingCard::setEdition(int8_t edition){
+  set(3,edition,EDITION_SHIFT,BIT_3MASK);
 }
-
-int8_t playingCard::getEnhancement() const{
-    return (data >> 6) & 0b1111;
-}
-
-int8_t playingCard::getEdition() const{
-    return (data >> 3) & 0b111;
-}
-
-int8_t playingCard::getSeal() const{
-    return data & 0b111;
+void PlayingCard::setSeal(int8_t seal){
+  set(4,seal,SEAL_SHIFT,BIT_3MASK);
 }
 
 
-
-void setError(std::string valueType, int rangeEnd){
-  printf("%s VALUE IS NOT IN THE ACCEPTABLE RANGE, IS OUTSIDE OF [1,%d]", valueType.c_str(),rangeEnd);
+int8_t PlayingCard::getSuit() const{
+  return (data >> SUIT_SHIFT) & BIT_2MASK; 
 }
 
+int8_t PlayingCard::getRank() const{
+    return (data >> RANK_SHIFT) & BIT_4MASK;
+}
 
+int8_t PlayingCard::getEnhancement() const{
+    return (data >> ENHANCEMENT_SHIFT) & BIT_4MASK;
+}
+
+int8_t PlayingCard::getEdition() const{
+    return (data >> EDITION_SHIFT) & BIT_3MASK;
+}
+
+int8_t PlayingCard::getSeal() const{
+    return data & BIT_3MASK;
+}
 
