@@ -7,6 +7,7 @@
 #include <iostream>
 #include <cstdio>
 
+
 const int8_t NO_ENHANCEMENT = 1;
 const int8_t BONUS = 2;
 const int8_t MULT = 3;
@@ -16,11 +17,6 @@ const int8_t STEEL = 6;
 const int8_t STONE = 7;
 const int8_t GOLD = 8;
 const int8_t LUCKY = 9;
-
-const int8_t NO_EDITION = 1;
-const int8_t FOIL = 2;
-const int8_t HOLOGRAPHIC = 3;
-const int8_t POLYCHROME = 4;
 
 const int8_t NO_SEAL = 1;
 const int8_t GOLD_SEAL = 2;

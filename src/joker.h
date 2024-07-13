@@ -7,19 +7,23 @@
 
 const std::string OUT_OF_RANGE_ERROR = "The given value is out of range";
 
-const uint8_t EDITION_MASK = 0b11100000;
-const uint8_t RARITY_MASK = 0b00001100;
-const uint8_t ACTIVATION_CODE_MASK = 0b00000011;
 
-const int EDITION_SHIFT = 5;
+const int EDITION_SHIFT = 4;
 const int RARITY_SHIFT = 2;
 const int ACTIVATION_SHIFT = 0;
 
+
+const uint8_t EDITION_MASK = 0b111 << EDITION_SHIFT;
+const uint8_t RARITY_MASK = 0b11 << RARITY_SHIFT;
+const uint8_t ACTIVATION_CODE_MASK = 0b00000011;
+
+const uint8_t BASE = 0;
 class Joker{
 private:
   std::string description;
   uint8_t data;
-public:
+  public:
+  void set(int min, int max, int value, int shift, uint8_t mask);
   void setDescription(std::string text);
   void setEdition(int edition);
   void setRarity(int rarity);
