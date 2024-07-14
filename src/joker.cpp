@@ -37,6 +37,10 @@ std::string Joker::getDescription(){
   return description;
 }
 
+std::string Joker::getName(){
+  return name;
+}
+
 int Joker::getEdition(){
   return (data >> EDITION_SHIFT) & 0b111;
 } 
@@ -67,6 +71,9 @@ void Joker::setActivateOn(int activation_code){
 
 void Joker::setDescription(std::string text){
   description = text;
+}
+void Joker::setName(std::string value){
+  name = value;
 }
 
 void Joker::toString(){

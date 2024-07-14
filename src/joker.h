@@ -19,25 +19,28 @@ const uint8_t ACTIVATION_CODE_MASK = 0b00000011;
 
 const uint8_t BASE = 0;
 class Joker{
-private:
-  std::string description;
-  uint8_t data;
+  private:
+    std::string name;
+    std::string description;
+    uint8_t data;
   public:
-  void set(int max, int value, int shift, uint8_t mask);
-  void setDescription(std::string text);
-  void setEdition(int edition);
-  void setRarity(int rarity);
-  void setActivateOn(int activation_code);
+    void set(int max, int value, int shift, uint8_t mask);
+    void setDescription(std::string text);
+    void setName(std::string value);
+    void setEdition(int edition);
+    void setRarity(int rarity);
+    void setActivateOn(int activation_code);
 
-  void toString();
+    void toString();
 
-  std::string getDescription();
-  uint8_t getData();
-  int getEdition();
-  int getRarity();
-  int getActivatedOn();
+    std::string getDescription();
+    std::string getName();
+    uint8_t getData();
+    int getEdition();
+    int getRarity();
+    int getActivatedOn();
 
-  Joker(int activation_code, int rarity, int edition);
+    Joker(int activation_code, int rarity, int edition);
 };
 
 #endif // JOKER_H
