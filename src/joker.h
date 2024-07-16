@@ -17,6 +17,19 @@ const uint8_t EDITION_MASK = 0b111 << EDITION_SHIFT;
 const uint8_t RARITY_MASK = 0b11 << RARITY_SHIFT;
 const uint8_t ACTIVATION_CODE_MASK = 0b00000011;
 
+const char COMMON = 0;
+const char UNCOMMON = 1;
+const char RARE = 2;
+const char LEGENDARY = 3;
+
+const char ON_PLAYED = 0;
+const char ON_SCORED = 1;
+const char ON_HELD = 2;
+const char ON_INDEPENDENT = 3;
+
+const char MAX_2BIT = 3;
+const char MAX_3BIT = 5;
+
 const uint8_t BASE = 0;
 class Joker{
   private:

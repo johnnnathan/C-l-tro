@@ -3,19 +3,6 @@
 #include "joker.h"
 #include "tools.h"
 
-const char COMMON = 0;
-const char UNCOMMON = 1;
-const char RARE = 2;
-const char LEGENDARY = 3;
-
-const char ON_PLAYED = 0;
-const char ON_SCORED = 1;
-const char ON_HELD = 2;
-const char ON_INDEPENDENT = 3;
-
-const char MAX_2BIT = 3;
-const char MAX_3BIT = 5;
-
 
 Joker::Joker(int activation_code, int rarity, int edition){
   data = 0;
@@ -89,8 +76,3 @@ void Joker::toString(){
 
 
 
-int main (int argc, char *argv[]) {
-  Joker joker(ON_HELD,LEGENDARY,FOIL);
-  joker.setDescription("There was a joker whose name was joker");
-  joker.toString();
-}
