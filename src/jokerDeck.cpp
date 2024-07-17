@@ -6,13 +6,13 @@
 
 
 void JokerDeck::addJoker(Joker* joker){
-  if (!(getJokerCount() < getDeckSize())){
+  if (getJokerCount() >= getDeckSize()){
     printError(FULL_JOKER_DECK);
     return;
   }
-  for (int i = 0; i <= getDeckSize(); i++){
+  for (int i = 0; i < getDeckSize(); i++){
     if(jokers[i] == nullptr){
-      jokers[getJokerCount()] = joker;
+      jokers[i] = joker;
       incrementCurrent();
       return;
     }
@@ -25,9 +25,10 @@ void JokerDeck::removeJoker(std::string jokerName){
     printError(EMPTY_JOKER_DECK);
     return;
   }
-  for (int i = 0; i <= getDeckSize(); i++){
-    if (jokers[i]->getName() == jokerName){
+  for (int i = 0; i < getDeckSize(); i++){
+    if (jokers[i] != nullptr && jokers[i]->getName() == jokerName){
       delete jokers[i];
+      jokers[i] = nullptr;
       decrementCurrent();
       return;
     }
@@ -51,7 +52,7 @@ int JokerDeck::getJokerCount(){
 }
 
  void JokerDeck::printDeck(){
-  for (int i = 0; i <= getDeckSize(); i++){
+  for (int i = 0; i < getDeckSize(); i++){
     if (jokers[i] != nullptr){
       jokers[i]->toString();
     }
