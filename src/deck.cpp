@@ -1,8 +1,11 @@
 #include "deck.h"
+#include "playingCard.h"
+#include <cstdlib>
+#include <utility>
 
-Deck::Deck(int size){
-  deck = new PlayingCard*[size];
-  deckSize = size;
+Deck::Deck(int size) {
+    deck = new PlayingCard*[size];
+    deckSize = size;
 }
 Deck::~Deck(){
   for (int card = 0; card < deckSize; card++){
@@ -39,6 +42,7 @@ void Deck::addCard(PlayingCard* card){
   deck = newDeck; 
   alterDeckSize(1);
 }
+
 void Deck::removeCard(int cardID){
   PlayingCard* newDeck [deckSize - 1];
   for (int cardCounter = 0; cardCounter < deckSize; cardCounter++){
@@ -58,9 +62,21 @@ void Deck::removeCard(int cardID){
   }
   alterDeckSize(-1);
 }
+
+
 int Deck::getDeckSize(){
   return deckSize;
 }
+
+void Deck::shuffle(){
+  int index;
+  std::srand(std::time(NULL));
+  for (int i = getDeckSize(); i >= 0; i--){
+    index = std::rand() % (i);
+    std::swap(deck[i], deck[index]);
+  }
+}
+
 
 void Deck::alterDeckSize(int change){
   deckSize += change;
@@ -72,3 +88,5 @@ PlayingCard* Deck::operator[](int index) const {
     }
     return deck[index];
 }
+
+

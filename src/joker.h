@@ -27,10 +27,19 @@ const char ON_SCORED = 1;
 const char ON_HELD = 2;
 const char ON_INDEPENDENT = 3;
 
+const char NO_EDITION = 1;
+const char FOIL = 2;
+const char HOLOGRAPHIC = 3;
+const char POLYCHROME = 4;
+const char NEGATIVE = 5;
+
+
 const char MAX_2BIT = 3;
 const char MAX_3BIT = 5;
 
 const uint8_t BASE = 0;
+
+
 class Joker{
   private:
     std::string name;

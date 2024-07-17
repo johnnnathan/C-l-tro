@@ -1,11 +1,9 @@
 #include "deck.h"
-
+#include "playingCard.h"
 
 
 int main (int argc, char *argv[]) {
-  Deck deck(52);  
-  deck.populateBoard();
-  deck.toString();
-
+  PlayingCard card(1,1,1,1,1);
+  card.print();
   return 0;
 }
