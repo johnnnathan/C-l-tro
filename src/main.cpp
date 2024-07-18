@@ -3,7 +3,9 @@
 
 
 int main (int argc, char *argv[]) {
-  PlayingCard card(1,1,1,1,1);
-  card.print();
+  Deck deck(52);
+  deck.populateBoard();
+  deck.shuffle();
+  deck.toString();
   return 0;
 }

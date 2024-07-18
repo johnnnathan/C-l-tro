@@ -13,6 +13,8 @@ const uint16_t BIT_2MASK = 0x3; // 2-bit mask
 const uint16_t BIT_3MASK = 0x7; // 3-bit mask
 const uint16_t BIT_4MASK = 0xF; // 4-bit mask
 
+
+/* override of << operator, to allow cards to be printed */
 std::ostream& operator<<(std::ostream& os, const PlayingCard& card) {
     os << "Rank: " << static_cast<int>(card.getRank())
        << " Suit: " << static_cast<int>(card.getSuit())
@@ -22,6 +24,7 @@ std::ostream& operator<<(std::ostream& os, const PlayingCard& card) {
     return os;
 }
 
+/* toString implementation of playingCard object */
 std::string PlayingCard::toString() const {
     std::stringstream ss;
     ss << "Rank: " << static_cast<int>(getRank())
@@ -32,11 +35,13 @@ std::string PlayingCard::toString() const {
     return ss.str();
 }
 
+/* Uses the toString method to print the card, qol not needed */
 void PlayingCard::print() {
     std::string result = toString();
     std::cout << result << '\n';
 }
 
+/* Constructor for PlayingCard object */
 PlayingCard::PlayingCard(int8_t rank, int8_t suit, int8_t enhancement, int8_t edition, int8_t seal) {
     id = globalID; // Increment globalID and assign it to id
     globalID += 1;
@@ -49,10 +54,7 @@ PlayingCard::PlayingCard(int8_t rank, int8_t suit, int8_t enhancement, int8_t ed
     setSeal(seal);
 }
 
-int PlayingCard::getID() {
-    return id;
-}
-
+/* Interface impmentation for the bitwise operations, the same as the one found in the joker class */
 void PlayingCard::set(int max, int value, int shift, uint16_t mask) {
     if (!checkRange(max, value)) {
         printError("Value out of range");
@@ -66,7 +68,7 @@ void PlayingCard::setSuit(int8_t suit) {
 }
 
 void PlayingCard::setRank(int8_t rank) {
-    set(12, rank, RANK_SHIFT, BIT_4MASK);
+    set(13, rank, RANK_SHIFT, BIT_4MASK);
 }
 
 void PlayingCard::setEnhancement(int8_t enhancement) {
@@ -79,6 +81,16 @@ void PlayingCard::setEdition(int8_t edition) {
 
 void PlayingCard::setSeal(int8_t seal) {
     set(4, seal, SEAL_SHIFT, BIT_3MASK);
+}
+
+
+/* 
+The following methods are getters, the type of data that they return is in the name, no explanation needed for the calls
+Each method takes the offset given by the respective shift amount and then isolates the needed bits using the & operator with the mask
+*/
+
+int PlayingCard::getID() {
+    return id;
 }
 
 int8_t PlayingCard::getSuit() const {
