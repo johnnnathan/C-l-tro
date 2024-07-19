@@ -42,5 +42,4 @@ class JokerDeck{
 };
 
 
-
 #endif // !JOKERDECK_H
