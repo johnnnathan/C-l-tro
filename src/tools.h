@@ -2,8 +2,12 @@
 #ifndef TOOLS_H
 #define TOOLS_H
 
+#include "playingCard.h"
 #include <iomanip>
 #include <sstream>
+#include <array>
+
+std::array<PlayingCard, 5> sortPlayingCards(std::array<PlayingCard, 5> array);
 
 int int_to_hex(int value);
 
