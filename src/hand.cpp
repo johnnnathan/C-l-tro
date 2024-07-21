@@ -1,5 +1,6 @@
 #include "hand.h"
 #include "points.h"
+#include "tools.h"
 #include <array>
 #include <utility>
 
@@ -82,19 +83,33 @@ bool Hand::isFlush() const{
   return flush;
 }
 bool Hand::isStraight() const{
-
+  if(cards.size() != 5){return false;}
+  std::array<PlayingCard,5> cardArray = cards; 
+  cardArray = sortPlayingCards(cardArray);
+  for (int i = 0; i < 4; i++){
+    if (cardArray[i].getRank() - cardArray[i + 1].getRank() != 1){return false;}
+  }
+  return true;
 }
+
 bool Hand::isStraightFlush() const{
-
+  if (isStraight() && isFlush()){return true;}
+  return false;
 }
+
 bool Hand::isRoyalFlush() const{
-
+  return true;
 }
+
 bool Hand::isFlushHouse() const{
-
+  if (isFlush() && isFullHouse()){return true;}
+  return false;
 }
-bool Hand::isFlushFive() const{
 
+
+bool Hand::isFlushFive() const{
+  if (isFlush() && isFiveOfAKind()){return true;}
+  return false;
 }
     
 
@@ -132,5 +147,6 @@ void Hand::findPairs(){
 
 std::pair<HandType, Points> Hand::evaluate(){
   findPairs();
-
+  std::pair<HandType, Points> returnPair;
+  return returnPair;
 }
