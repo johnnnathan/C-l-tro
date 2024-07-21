@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <iostream>
 #include <ostream>
+#include <utility>
 
 /* Simple method to see whether or not the value given is greater than, or equal to zero and at most the maximum value given */
 bool checkRange(int max, int value) {
@@ -14,8 +15,20 @@ void printError(std::string error) {
   std::cout << error << '\n';
 }
 
+/* Insertion sort method for a played hand, only works for full hands, meaning 5 played cards */
 std::array<PlayingCard, 5> sortPlayingCards(std::array<PlayingCard, 5> array){
-  
+  for (int i = 1; i < 5; i++){
+    PlayingCard card = array[i];
+    int key = card.getRank();
+    int j = i - 1;
+
+    while (j >= 0 && key > array[j].getRank()){
+      std::swap(array[j], array[j + 1]);
+      j -= 1;
+    }
+    array[j+1] = card;
+  }  
+  return array;
 }
 /* set the bits of a variable, data is the template that gets operaterd upon, value is the value that should be added to it, mask is used to determine the amount of bits affected 
  * and shift determines which bits onwards get overriden  */
