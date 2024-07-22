@@ -36,7 +36,7 @@ The Balatro Card Game is a C++ project that simulates a card game inspired by tr
     make
     ```
 
-This will compile the source files and create an executable named balatro.
+   This will compile the source files and create an executable named balatro.
 
 4. Clean Build Artifacts (optional):
 
