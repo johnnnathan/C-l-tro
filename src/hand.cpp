@@ -1,14 +1,28 @@
 #include "hand.h"
 #include "points.h"
 #include "tools.h"
+#include "handTypes.h"
 #include <array>
 #include <utility>
 
+std::string WRONG_HAND_SIZE = "Hand size not 5, can not proceed";
 
 Hand::Hand(const std::array<PlayingCard, 5>& cards, int multiplier, int chips)
     : cards(cards), points{multiplier, chips} {
 }
 
+std::array<int, 5> Hand::toIntArray() const{
+  std::array<int, 5> result; 
+  if(cards.size() != 5){
+    printError(WRONG_HAND_SIZE); 
+    return result;
+  }
+
+  for (int i = 0; i < 5; i ++){
+    result[i] = cards[i].getRank();
+  }
+  return result;
+}
 
 std::vector<bool> Hand::getPositions() const{
   return this->positions;
@@ -83,13 +97,16 @@ bool Hand::isFlush() const{
   return flush;
 }
 bool Hand::isStraight() const{
+
+  bool flag = true;
+
   if(cards.size() != 5){return false;}
   std::array<PlayingCard,5> cardArray = cards; 
   cardArray = sortPlayingCards(cardArray);
   for (int i = 0; i < 4; i++){
-    if (cardArray[i].getRank() - cardArray[i + 1].getRank() != 1){return false;}
+    if (cardArray[i].getRank() - cardArray[i + 1].getRank() != 1){flag = false; break;}
   }
-  return true;
+  return flag || isHighStraight();
 }
 
 bool Hand::isStraightFlush() const{
@@ -98,7 +115,14 @@ bool Hand::isStraightFlush() const{
 }
 
 bool Hand::isRoyalFlush() const{
-  return true;
+  return isHighStraight() && isFlush();
+}
+
+bool Hand::isHighStraight() const{
+
+  std::array<int,5> intArray = toIntArray();
+  std::array<int, 5> wanted = {0,9,10,11,12};
+  return areIn(intArray, wanted);
 }
 
 bool Hand::isFlushHouse() const{
@@ -144,9 +168,36 @@ void Hand::findPairs(){
   this->positions = positions;
 }
 
+std::pair<HandType, Points> Hand::evaluate() {
+    findPairs();
 
-std::pair<HandType, Points> Hand::evaluate(){
-  findPairs();
-  std::pair<HandType, Points> returnPair;
-  return returnPair;
+    if (isRoyalFlush()) {
+        return std::make_pair(HandType::ROYAL_FLUSH, points);
+    } else if (isStraightFlush()) {
+        return std::make_pair(HandType::STRAIGHT_FLUSH, points);
+    } else if (isFlushFive()) {
+        return std::make_pair(HandType::FLUSH_FIVE, points);
+    } else if (isFiveOfAKind()) {
+        return std::make_pair(HandType::FIVE_OF_A_KIND, points);
+    } else if (isFourOfAKind()) {
+        return std::make_pair(HandType::FOUR_OF_A_KIND, points);
+    } else if (isFlushHouse()) {
+        return std::make_pair(HandType::FLUSH_HOUSE, points);
+    } else if (isFullHouse()) {
+        return std::make_pair(HandType::FULL_HOUSE, points);
+    } else if (isFlush()) {
+        return std::make_pair(HandType::FLUSH, points);
+    } else if (isStraight()) {
+        return std::make_pair(HandType::STRAIGHT, points);
+    } else if (isThreeOfAKind()) {
+        return std::make_pair(HandType::THREE_OF_A_KIND, points);
+    } else if (isTwoPair()) {
+        return std::make_pair(HandType::TWO_PAIR, points);
+    } else if (isPair()) {
+        return std::make_pair(HandType::ONE_PAIR, points);
+    } else if (isHighCard()){
+        return std::make_pair(HandType::HIGH_CARD, points);
+    } else{
+      return std::make_pair(HandType::ERROR, points);
+    }
 }

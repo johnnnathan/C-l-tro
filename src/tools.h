@@ -9,6 +9,10 @@
 
 std::array<PlayingCard, 5> sortPlayingCards(std::array<PlayingCard, 5> array);
 
+bool isIn(std::array<int,5> array, int number);
+
+bool areIn(std::array<int,5> given, std::array<int, 5> wanted);
+
 int int_to_hex(int value);
 
 bool checkRange(int max, int value);

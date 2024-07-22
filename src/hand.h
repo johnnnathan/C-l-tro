@@ -14,7 +14,6 @@ class Hand {
     std::array<PlayingCard, 5> cards;
     std::pair<int, int> pairTypes;
     std::vector<bool> positions;
-  public:
     bool isHighCard() const;
     bool isPair() const;
     bool isTwoPair() const;
@@ -28,14 +27,16 @@ class Hand {
     bool isRoyalFlush() const;
     bool isFlushHouse() const;
     bool isFlushFive() const;
-
+    bool isHighStraight() const;
+    void findPairs();
+  public:
     Hand(const std::array<PlayingCard, 5>& cards, int multiplier, int chips);
+    std::array<int, 5> toIntArray() const;
 
     void print() const;
 
     std::vector<bool> getPositions() const;
     std::pair<int,int> getPairTypes() const;
-    void findPairs();
     std::pair<HandType, Points> evaluate();
     
 };

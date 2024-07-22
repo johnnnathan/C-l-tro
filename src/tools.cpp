@@ -5,6 +5,28 @@
 #include <ostream>
 #include <utility>
 
+
+
+/* detects if element is inside the given array*/
+bool isIn(std::array<int,5> array, int number){
+  bool flag = false;
+  for (int i = 0; i < 5; i++){
+    if (array[i] == number){flag = true; break;}
+  }
+  return flag;
+}
+
+/* Same as isIn but for 5 elements instead of just one, could modify it to accept an array with 5 or less elements, but not necessary for now */
+bool areIn(std::array<int,5> given, std::array<int, 5> wanted){
+  bool flag = true;
+  for (int i = 0; i < 5; i++){
+    if(!isIn(given,wanted[i])){flag = false; break;} 
+  }
+  return flag;
+}
+
+
+
 /* Simple method to see whether or not the value given is greater than, or equal to zero and at most the maximum value given */
 bool checkRange(int max, int value) {
   return value >= 0 && value <= max;
