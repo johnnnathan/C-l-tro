@@ -101,7 +101,7 @@ int8_t PlayingCard::getRank() const {
     return (data >> RANK_SHIFT) & BIT_4MASK;
 }
 
-int8_t PlayingCard::getEnhancement() const {
+int8_t PlayingCard::getEnhancement()const {
     return (data >> ENHANCEMENT_SHIFT) & BIT_4MASK;
 }
 

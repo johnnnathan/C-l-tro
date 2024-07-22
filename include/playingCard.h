@@ -23,7 +23,7 @@ const char RED_SEAL = 2;
 const char BLUE_SEAL = 3;
 const char PURPLE_SEAL = 4;
 
-const char NO_EDITION = 0;
+const char NO_EDITION_CARD = 0;
 
 void setError(std::string valueType, int rangeEnd);
 

@@ -1,7 +1,6 @@
 #ifndef JOKER_H
 #define JOKER_H
 
-#define JOKER_H
 #include <cstdint>
 #include <string>
 
@@ -27,11 +26,11 @@ const char ON_SCORED = 1;
 const char ON_HELD = 2;
 const char ON_INDEPENDENT = 3;
 
-const char NO_EDITION = 1;
-const char FOIL = 2;
-const char HOLOGRAPHIC = 3;
-const char POLYCHROME = 4;
-const char NEGATIVE = 5;
+const char NO_EDITION = 0;
+const char FOIL = 1;
+const char HOLOGRAPHIC = 2;
+const char POLYCHROME = 3;
+const char NEGATIVE = 4;
 
 
 const char MAX_2BIT = 3;

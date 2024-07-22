@@ -41,7 +41,7 @@ void Deck::populateBoard(){
   int counter = 0;
   for (int rank = 0; rank < 13; rank++){
     for (int suit = 0; suit < 4; suit++){
-      PlayingCard *card = new PlayingCard(rank,suit, NO_ENHANCEMENT, NO_EDITION, NO_SEAL);
+      PlayingCard *card = new PlayingCard(rank,suit, NO_ENHANCEMENT, NO_EDITION_CARD, NO_SEAL);
       deck[counter] = card; 
       counter += 1;
       std::cout << counter << std::endl;
