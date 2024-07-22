@@ -1,0 +1,3 @@
+/Users/dimi/Desktop/Projects/C-l-tro/build/CMakeFiles/MyExecutable.dir
+/Users/dimi/Desktop/Projects/C-l-tro/build/CMakeFiles/edit_cache.dir
+/Users/dimi/Desktop/Projects/C-l-tro/build/CMakeFiles/rebuild_cache.dir

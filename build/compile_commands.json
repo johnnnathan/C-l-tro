@@ -1,0 +1,44 @@
+[
+{
+  "directory": "/Users/dimi/Desktop/Projects/C-l-tro/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/dimi/Desktop/Projects/C-l-tro/include -std=gnu++17 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/MyExecutable.dir/src/deck.cpp.o -c /Users/dimi/Desktop/Projects/C-l-tro/src/deck.cpp",
+  "file": "/Users/dimi/Desktop/Projects/C-l-tro/src/deck.cpp",
+  "output": "CMakeFiles/MyExecutable.dir/src/deck.cpp.o"
+},
+{
+  "directory": "/Users/dimi/Desktop/Projects/C-l-tro/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/dimi/Desktop/Projects/C-l-tro/include -std=gnu++17 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/MyExecutable.dir/src/hand.cpp.o -c /Users/dimi/Desktop/Projects/C-l-tro/src/hand.cpp",
+  "file": "/Users/dimi/Desktop/Projects/C-l-tro/src/hand.cpp",
+  "output": "CMakeFiles/MyExecutable.dir/src/hand.cpp.o"
+},
+{
+  "directory": "/Users/dimi/Desktop/Projects/C-l-tro/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/dimi/Desktop/Projects/C-l-tro/include -std=gnu++17 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/MyExecutable.dir/src/joker.cpp.o -c /Users/dimi/Desktop/Projects/C-l-tro/src/joker.cpp",
+  "file": "/Users/dimi/Desktop/Projects/C-l-tro/src/joker.cpp",
+  "output": "CMakeFiles/MyExecutable.dir/src/joker.cpp.o"
+},
+{
+  "directory": "/Users/dimi/Desktop/Projects/C-l-tro/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/dimi/Desktop/Projects/C-l-tro/include -std=gnu++17 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/MyExecutable.dir/src/jokerDeck.cpp.o -c /Users/dimi/Desktop/Projects/C-l-tro/src/jokerDeck.cpp",
+  "file": "/Users/dimi/Desktop/Projects/C-l-tro/src/jokerDeck.cpp",
+  "output": "CMakeFiles/MyExecutable.dir/src/jokerDeck.cpp.o"
+},
+{
+  "directory": "/Users/dimi/Desktop/Projects/C-l-tro/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/dimi/Desktop/Projects/C-l-tro/include -std=gnu++17 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/MyExecutable.dir/src/main.cpp.o -c /Users/dimi/Desktop/Projects/C-l-tro/src/main.cpp",
+  "file": "/Users/dimi/Desktop/Projects/C-l-tro/src/main.cpp",
+  "output": "CMakeFiles/MyExecutable.dir/src/main.cpp.o"
+},
+{
+  "directory": "/Users/dimi/Desktop/Projects/C-l-tro/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/dimi/Desktop/Projects/C-l-tro/include -std=gnu++17 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/MyExecutable.dir/src/playingCard.cpp.o -c /Users/dimi/Desktop/Projects/C-l-tro/src/playingCard.cpp",
+  "file": "/Users/dimi/Desktop/Projects/C-l-tro/src/playingCard.cpp",
+  "output": "CMakeFiles/MyExecutable.dir/src/playingCard.cpp.o"
+},
+{
+  "directory": "/Users/dimi/Desktop/Projects/C-l-tro/build",
+  "command": "/Library/Developer/CommandLineTools/usr/bin/c++  -I/Users/dimi/Desktop/Projects/C-l-tro/include -std=gnu++17 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX13.3.sdk -o CMakeFiles/MyExecutable.dir/src/tools.cpp.o -c /Users/dimi/Desktop/Projects/C-l-tro/src/tools.cpp",
+  "file": "/Users/dimi/Desktop/Projects/C-l-tro/src/tools.cpp",
+  "output": "CMakeFiles/MyExecutable.dir/src/tools.cpp.o"
+}
+]
