@@ -1,47 +1,45 @@
+# Makefile for C++ project
+
 # Compiler
 CXX = g++
 
 # Compiler flags
-CXXFLAGS = -Wall -Wextra -std=c++17 -O2
+CXXFLAGS = -std=c++17 -Wall -Iinclude
 
-# Linker flags
-LDFLAGS = 
-
-# Project name
-TARGET = my_program
+# Linker flags (if needed)
+LDFLAGS =
 
 # Directories
 SRC_DIR = src
-OBJ_DIR = obj
-BIN_DIR = bin
+INCLUDE_DIR = include
+BUILD_DIR = build
 
-# Find all source files in the SRC_DIR
-SRCS = $(wildcard $(SRC_DIR)/*.cpp)
+# Source files
+SRC_FILES = $(wildcard $(SRC_DIR)/*.cpp)
 
-# Generate object file names from source files
-OBJS = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRCS))
+# Object files
+OBJ_FILES = $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SRC_FILES))
+
+# Output binary
+TARGET = c-l-tro
 
 # Default target
-all: $(BIN_DIR)/$(TARGET)
+all: $(TARGET)
 
-# Linking
-$(BIN_DIR)/$(TARGET): $(OBJS) | $(BIN_DIR)
-	$(CXX) $(CXXFLAGS) $(OBJS) -o $@ $(LDFLAGS)
+# Link the final executable
+$(TARGET): $(OBJ_FILES)
+	$(CXX) $(LDFLAGS) -o $@ $^
 
-# Compilation
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
+# Compile source files into object files
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
+	@mkdir -p $(BUILD_DIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Create directories if they don't exist
-$(BIN_DIR):
-	mkdir -p $(BIN_DIR)
-
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
-
-# Clean up build artifacts
+# Clean up build files
 clean:
-	rm -rf $(OBJ_DIR) $(BIN_DIR)/$(TARGET)
+	rm -rf $(BUILD_DIR) $(TARGET)
 
-# Phony targets
-.PHONY: all clean
+# Rebuild the project
+rebuild: clean all
+
+.PHONY: all clean rebuild
