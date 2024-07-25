@@ -1,22 +1,42 @@
 #include "deck.h"
+#include "discardPile.h"
 #include "playingCard.h"
+#include <iostream>
 
 int main() {
-  // Create a deck with size 60
-  Deck deck(12);
+  // Create a deck with a fixed size (for simplicity, using 5 cards)
+  Deck deck(5);
 
-  // Add some custom cards
-  PlayingCard *card1 = new PlayingCard(1, 1, 2, 1, 1);
-  PlayingCard *card2 = new PlayingCard(2, 2, 3, 1, 2);
-  deck.addCard(card1);
-  deck.addCard(card2);
-  std::cout << "\nDeck after adding custom cards:" << std::endl;
-  deck.toString();
+  // Create some playing cards
+  PlayingCard card1(1, 1, 0, 0, 0); // Example card
+  PlayingCard card2(2, 1, 0, 0, 0); // Example card
+  PlayingCard card3(3, 1, 0, 0, 0); // Example card
 
-  // Remove one of the custom cards
-  deck.removeCard(card1->getID());
-  std::cout << "\nDeck after removing a custom card:" << std::endl;
-  deck.toString();
+  // Add cards to the deck
+  deck.addCard(&card1);
+  deck.addCard(&card2);
+  deck.addCard(&card3);
+
+  // Create a discard pile with a fixed size (for simplicity, using 5 cards)
+  DiscardPile discardPile(5);
+
+  // Remove cards from the deck and add to discard pile
+  discardPile.addCard(deck[0]); // Assuming `deck[0]` returns the card pointer
+  deck.removeCard(0);
+
+  discardPile.addCard(deck[0]); // Remove another card
+  deck.removeCard(0);
+
+  // Print the discard pile contents
+  std::cout << "Discard Pile Contents:\n";
+  discardPile.toString(); // Assuming this prints all cards in the discard pile
+
+  // Flush the discard pile back into the deck
+  discardPile.flush(deck);
+
+  // Print the deck contents after flushing
+  std::cout << "Deck Contents after Flushing Discard Pile:\n";
+  deck.toString(); // Assuming this prints all cards in the deck
 
   return 0;
 }
