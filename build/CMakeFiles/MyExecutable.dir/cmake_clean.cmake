@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/MyExecutable.dir/src/deck.cpp.o"
   "CMakeFiles/MyExecutable.dir/src/deck.cpp.o.d"
+  "CMakeFiles/MyExecutable.dir/src/discardPile.cpp.o"
+  "CMakeFiles/MyExecutable.dir/src/discardPile.cpp.o.d"
   "CMakeFiles/MyExecutable.dir/src/hand.cpp.o"
   "CMakeFiles/MyExecutable.dir/src/hand.cpp.o.d"
   "CMakeFiles/MyExecutable.dir/src/joker.cpp.o"

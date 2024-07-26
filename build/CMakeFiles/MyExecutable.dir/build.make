@@ -83,10 +83,24 @@ CMakeFiles/MyExecutable.dir/src/deck.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MyExecutable.dir/src/deck.cpp.s"
 	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/dimi/Desktop/Projects/C-l-tro/src/deck.cpp -o CMakeFiles/MyExecutable.dir/src/deck.cpp.s
 
+CMakeFiles/MyExecutable.dir/src/discardPile.cpp.o: CMakeFiles/MyExecutable.dir/flags.make
+CMakeFiles/MyExecutable.dir/src/discardPile.cpp.o: /Users/dimi/Desktop/Projects/C-l-tro/src/discardPile.cpp
+CMakeFiles/MyExecutable.dir/src/discardPile.cpp.o: CMakeFiles/MyExecutable.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/dimi/Desktop/Projects/C-l-tro/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/MyExecutable.dir/src/discardPile.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyExecutable.dir/src/discardPile.cpp.o -MF CMakeFiles/MyExecutable.dir/src/discardPile.cpp.o.d -o CMakeFiles/MyExecutable.dir/src/discardPile.cpp.o -c /Users/dimi/Desktop/Projects/C-l-tro/src/discardPile.cpp
+
+CMakeFiles/MyExecutable.dir/src/discardPile.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/MyExecutable.dir/src/discardPile.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/dimi/Desktop/Projects/C-l-tro/src/discardPile.cpp > CMakeFiles/MyExecutable.dir/src/discardPile.cpp.i
+
+CMakeFiles/MyExecutable.dir/src/discardPile.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/MyExecutable.dir/src/discardPile.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/dimi/Desktop/Projects/C-l-tro/src/discardPile.cpp -o CMakeFiles/MyExecutable.dir/src/discardPile.cpp.s
+
 CMakeFiles/MyExecutable.dir/src/hand.cpp.o: CMakeFiles/MyExecutable.dir/flags.make
 CMakeFiles/MyExecutable.dir/src/hand.cpp.o: /Users/dimi/Desktop/Projects/C-l-tro/src/hand.cpp
 CMakeFiles/MyExecutable.dir/src/hand.cpp.o: CMakeFiles/MyExecutable.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/dimi/Desktop/Projects/C-l-tro/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/MyExecutable.dir/src/hand.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/dimi/Desktop/Projects/C-l-tro/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/MyExecutable.dir/src/hand.cpp.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyExecutable.dir/src/hand.cpp.o -MF CMakeFiles/MyExecutable.dir/src/hand.cpp.o.d -o CMakeFiles/MyExecutable.dir/src/hand.cpp.o -c /Users/dimi/Desktop/Projects/C-l-tro/src/hand.cpp
 
 CMakeFiles/MyExecutable.dir/src/hand.cpp.i: cmake_force
@@ -100,7 +114,7 @@ CMakeFiles/MyExecutable.dir/src/hand.cpp.s: cmake_force
 CMakeFiles/MyExecutable.dir/src/joker.cpp.o: CMakeFiles/MyExecutable.dir/flags.make
 CMakeFiles/MyExecutable.dir/src/joker.cpp.o: /Users/dimi/Desktop/Projects/C-l-tro/src/joker.cpp
 CMakeFiles/MyExecutable.dir/src/joker.cpp.o: CMakeFiles/MyExecutable.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/dimi/Desktop/Projects/C-l-tro/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/MyExecutable.dir/src/joker.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/dimi/Desktop/Projects/C-l-tro/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/MyExecutable.dir/src/joker.cpp.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyExecutable.dir/src/joker.cpp.o -MF CMakeFiles/MyExecutable.dir/src/joker.cpp.o.d -o CMakeFiles/MyExecutable.dir/src/joker.cpp.o -c /Users/dimi/Desktop/Projects/C-l-tro/src/joker.cpp
 
 CMakeFiles/MyExecutable.dir/src/joker.cpp.i: cmake_force
@@ -114,7 +128,7 @@ CMakeFiles/MyExecutable.dir/src/joker.cpp.s: cmake_force
 CMakeFiles/MyExecutable.dir/src/jokerDeck.cpp.o: CMakeFiles/MyExecutable.dir/flags.make
 CMakeFiles/MyExecutable.dir/src/jokerDeck.cpp.o: /Users/dimi/Desktop/Projects/C-l-tro/src/jokerDeck.cpp
 CMakeFiles/MyExecutable.dir/src/jokerDeck.cpp.o: CMakeFiles/MyExecutable.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/dimi/Desktop/Projects/C-l-tro/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/MyExecutable.dir/src/jokerDeck.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/dimi/Desktop/Projects/C-l-tro/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/MyExecutable.dir/src/jokerDeck.cpp.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyExecutable.dir/src/jokerDeck.cpp.o -MF CMakeFiles/MyExecutable.dir/src/jokerDeck.cpp.o.d -o CMakeFiles/MyExecutable.dir/src/jokerDeck.cpp.o -c /Users/dimi/Desktop/Projects/C-l-tro/src/jokerDeck.cpp
 
 CMakeFiles/MyExecutable.dir/src/jokerDeck.cpp.i: cmake_force
@@ -128,7 +142,7 @@ CMakeFiles/MyExecutable.dir/src/jokerDeck.cpp.s: cmake_force
 CMakeFiles/MyExecutable.dir/src/main.cpp.o: CMakeFiles/MyExecutable.dir/flags.make
 CMakeFiles/MyExecutable.dir/src/main.cpp.o: /Users/dimi/Desktop/Projects/C-l-tro/src/main.cpp
 CMakeFiles/MyExecutable.dir/src/main.cpp.o: CMakeFiles/MyExecutable.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/dimi/Desktop/Projects/C-l-tro/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/MyExecutable.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/dimi/Desktop/Projects/C-l-tro/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/MyExecutable.dir/src/main.cpp.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyExecutable.dir/src/main.cpp.o -MF CMakeFiles/MyExecutable.dir/src/main.cpp.o.d -o CMakeFiles/MyExecutable.dir/src/main.cpp.o -c /Users/dimi/Desktop/Projects/C-l-tro/src/main.cpp
 
 CMakeFiles/MyExecutable.dir/src/main.cpp.i: cmake_force
@@ -142,7 +156,7 @@ CMakeFiles/MyExecutable.dir/src/main.cpp.s: cmake_force
 CMakeFiles/MyExecutable.dir/src/playingCard.cpp.o: CMakeFiles/MyExecutable.dir/flags.make
 CMakeFiles/MyExecutable.dir/src/playingCard.cpp.o: /Users/dimi/Desktop/Projects/C-l-tro/src/playingCard.cpp
 CMakeFiles/MyExecutable.dir/src/playingCard.cpp.o: CMakeFiles/MyExecutable.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/dimi/Desktop/Projects/C-l-tro/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/MyExecutable.dir/src/playingCard.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/dimi/Desktop/Projects/C-l-tro/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/MyExecutable.dir/src/playingCard.cpp.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyExecutable.dir/src/playingCard.cpp.o -MF CMakeFiles/MyExecutable.dir/src/playingCard.cpp.o.d -o CMakeFiles/MyExecutable.dir/src/playingCard.cpp.o -c /Users/dimi/Desktop/Projects/C-l-tro/src/playingCard.cpp
 
 CMakeFiles/MyExecutable.dir/src/playingCard.cpp.i: cmake_force
@@ -156,7 +170,7 @@ CMakeFiles/MyExecutable.dir/src/playingCard.cpp.s: cmake_force
 CMakeFiles/MyExecutable.dir/src/tools.cpp.o: CMakeFiles/MyExecutable.dir/flags.make
 CMakeFiles/MyExecutable.dir/src/tools.cpp.o: /Users/dimi/Desktop/Projects/C-l-tro/src/tools.cpp
 CMakeFiles/MyExecutable.dir/src/tools.cpp.o: CMakeFiles/MyExecutable.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/dimi/Desktop/Projects/C-l-tro/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/MyExecutable.dir/src/tools.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/dimi/Desktop/Projects/C-l-tro/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/MyExecutable.dir/src/tools.cpp.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/MyExecutable.dir/src/tools.cpp.o -MF CMakeFiles/MyExecutable.dir/src/tools.cpp.o.d -o CMakeFiles/MyExecutable.dir/src/tools.cpp.o -c /Users/dimi/Desktop/Projects/C-l-tro/src/tools.cpp
 
 CMakeFiles/MyExecutable.dir/src/tools.cpp.i: cmake_force
@@ -170,6 +184,7 @@ CMakeFiles/MyExecutable.dir/src/tools.cpp.s: cmake_force
 # Object files for target MyExecutable
 MyExecutable_OBJECTS = \
 "CMakeFiles/MyExecutable.dir/src/deck.cpp.o" \
+"CMakeFiles/MyExecutable.dir/src/discardPile.cpp.o" \
 "CMakeFiles/MyExecutable.dir/src/hand.cpp.o" \
 "CMakeFiles/MyExecutable.dir/src/joker.cpp.o" \
 "CMakeFiles/MyExecutable.dir/src/jokerDeck.cpp.o" \
@@ -181,6 +196,7 @@ MyExecutable_OBJECTS = \
 MyExecutable_EXTERNAL_OBJECTS =
 
 MyExecutable: CMakeFiles/MyExecutable.dir/src/deck.cpp.o
+MyExecutable: CMakeFiles/MyExecutable.dir/src/discardPile.cpp.o
 MyExecutable: CMakeFiles/MyExecutable.dir/src/hand.cpp.o
 MyExecutable: CMakeFiles/MyExecutable.dir/src/joker.cpp.o
 MyExecutable: CMakeFiles/MyExecutable.dir/src/jokerDeck.cpp.o
@@ -189,7 +205,7 @@ MyExecutable: CMakeFiles/MyExecutable.dir/src/playingCard.cpp.o
 MyExecutable: CMakeFiles/MyExecutable.dir/src/tools.cpp.o
 MyExecutable: CMakeFiles/MyExecutable.dir/build.make
 MyExecutable: CMakeFiles/MyExecutable.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/dimi/Desktop/Projects/C-l-tro/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable MyExecutable"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/dimi/Desktop/Projects/C-l-tro/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable MyExecutable"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/MyExecutable.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

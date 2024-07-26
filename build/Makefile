@@ -153,6 +153,30 @@ src/deck.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyExecutable.dir/build.make CMakeFiles/MyExecutable.dir/src/deck.cpp.s
 .PHONY : src/deck.cpp.s
 
+src/discardPile.o: src/discardPile.cpp.o
+.PHONY : src/discardPile.o
+
+# target to build an object file
+src/discardPile.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyExecutable.dir/build.make CMakeFiles/MyExecutable.dir/src/discardPile.cpp.o
+.PHONY : src/discardPile.cpp.o
+
+src/discardPile.i: src/discardPile.cpp.i
+.PHONY : src/discardPile.i
+
+# target to preprocess a source file
+src/discardPile.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyExecutable.dir/build.make CMakeFiles/MyExecutable.dir/src/discardPile.cpp.i
+.PHONY : src/discardPile.cpp.i
+
+src/discardPile.s: src/discardPile.cpp.s
+.PHONY : src/discardPile.s
+
+# target to generate assembly for a file
+src/discardPile.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MyExecutable.dir/build.make CMakeFiles/MyExecutable.dir/src/discardPile.cpp.s
+.PHONY : src/discardPile.cpp.s
+
 src/hand.o: src/hand.cpp.o
 .PHONY : src/hand.o
 
@@ -309,6 +333,9 @@ help:
 	@echo "... src/deck.o"
 	@echo "... src/deck.i"
 	@echo "... src/deck.s"
+	@echo "... src/discardPile.o"
+	@echo "... src/discardPile.i"
+	@echo "... src/discardPile.s"
 	@echo "... src/hand.o"
 	@echo "... src/hand.i"
 	@echo "... src/hand.s"

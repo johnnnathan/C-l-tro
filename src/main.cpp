@@ -16,27 +16,30 @@ int main() {
   deck.addCard(&card1);
   deck.addCard(&card2);
   deck.addCard(&card3);
+  deck.toString();
 
   // Create a discard pile with a fixed size (for simplicity, using 5 cards)
   DiscardPile discardPile(5);
 
   // Remove cards from the deck and add to discard pile
-  discardPile.addCard(deck[0]); // Assuming `deck[0]` returns the card pointer
+  discardPile.addCard(deck[5]); // Assuming `deck[0]` returns the card pointer
   deck.removeCard(0);
 
-  discardPile.addCard(deck[0]); // Remove another card
-  deck.removeCard(0);
+  discardPile.addCard(deck[5]); // Remove another card
+  deck.removeCard(1);
+
+  std::cout << '\n';
+  deck.toString();
+  std::cout << '\n';
 
   // Print the discard pile contents
-  std::cout << "Discard Pile Contents:\n";
+  std::cout << "\nDiscard Pile Contents:\n";
   discardPile.toString(); // Assuming this prints all cards in the discard pile
 
   // Flush the discard pile back into the deck
   discardPile.flush(deck);
 
   // Print the deck contents after flushing
-  std::cout << "Deck Contents after Flushing Discard Pile:\n";
+  std::cout << "\nDeck Contents after Flushing Discard Pile:\n";
   deck.toString(); // Assuming this prints all cards in the deck
-
-  return 0;
 }

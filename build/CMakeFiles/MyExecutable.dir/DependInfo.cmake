@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/dimi/Desktop/Projects/C-l-tro/src/deck.cpp" "CMakeFiles/MyExecutable.dir/src/deck.cpp.o" "gcc" "CMakeFiles/MyExecutable.dir/src/deck.cpp.o.d"
+  "/Users/dimi/Desktop/Projects/C-l-tro/src/discardPile.cpp" "CMakeFiles/MyExecutable.dir/src/discardPile.cpp.o" "gcc" "CMakeFiles/MyExecutable.dir/src/discardPile.cpp.o.d"
   "/Users/dimi/Desktop/Projects/C-l-tro/src/hand.cpp" "CMakeFiles/MyExecutable.dir/src/hand.cpp.o" "gcc" "CMakeFiles/MyExecutable.dir/src/hand.cpp.o.d"
   "/Users/dimi/Desktop/Projects/C-l-tro/src/joker.cpp" "CMakeFiles/MyExecutable.dir/src/joker.cpp.o" "gcc" "CMakeFiles/MyExecutable.dir/src/joker.cpp.o.d"
   "/Users/dimi/Desktop/Projects/C-l-tro/src/jokerDeck.cpp" "CMakeFiles/MyExecutable.dir/src/jokerDeck.cpp.o" "gcc" "CMakeFiles/MyExecutable.dir/src/jokerDeck.cpp.o.d"

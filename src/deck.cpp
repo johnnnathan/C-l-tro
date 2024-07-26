@@ -22,7 +22,7 @@ Deck::~Deck() {
 
 /* Loops over every card inside the deck, printing each individual one */
 void Deck::toString() {
-  for (int i = 0; i < deckSize; i++) {
+  for (int i = 0; i < deckSize; ++i) {
     if (deck[i] != nullptr) {
       std::cout << *(deck[i]) << std::endl;
     } else {
@@ -96,7 +96,6 @@ void Deck::removeCard(int cardID) {
 
   for (int i = 0; i < deckSize; i++) {
     if (deck[i] != nullptr && deck[i]->getID() == cardID) {
-      delete deck[i];
       cardInDeck = true;
     } else {
       if (newDeckCounter < newDeckSize) {
@@ -111,7 +110,6 @@ void Deck::removeCard(int cardID) {
     return;
   }
 
-  // If card is removed successfully, update the deck
   delete[] deck;
   deck = newDeck;
   deckSize = newDeckSize;

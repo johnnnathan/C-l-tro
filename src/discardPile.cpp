@@ -9,7 +9,7 @@ DiscardPile::DiscardPile(int initialSize) : size(initialSize), currentCards(0) {
   if (initialSize > MAX_SIZE) {
     size = MAX_SIZE;
   }
-  for (int i = 0; i < size; ++i) {
+  for (int i = 0; i < MAX_SIZE; ++i) {
     pile[i] = nullptr;
   }
 }
@@ -17,12 +17,15 @@ DiscardPile::DiscardPile(int initialSize) : size(initialSize), currentCards(0) {
 // Add a card to the discard pile
 void DiscardPile::addCard(PlayingCard *card) {
   assert(currentCards < size); // Ensure there's space to add the card
+  if (card == nullptr) {
+    std::cout << "NULL \n";
+  }
   pile[currentCards++] = card;
 }
 
 // Flush the discard pile into the deck
 void DiscardPile::flush(Deck &deck) {
-  for (int pileIndex = 0; pileIndex < currentCards; ++pileIndex) {
+  for (int pileIndex = 0; pileIndex < currentCards; pileIndex++) {
     if (pile[pileIndex] != nullptr) {
       deck.addCard(pile[pileIndex]);
       pile[pileIndex] = nullptr;
@@ -32,16 +35,18 @@ void DiscardPile::flush(Deck &deck) {
 }
 
 // Get the size of the discard pile
-int DiscardPile::getSize() { return size; }
+int DiscardPile::getSize() const { return size; }
 
 // Get the current count of cards in the discard pile
-int DiscardPile::getCurrentCount() { return currentCards; }
+int DiscardPile::getCurrentCount() const { return currentCards; }
 
 // Print the contents of the discard pile
 void DiscardPile::toString() const {
   std::stringstream ss;
-  for (int i = 0; i < currentCards; ++i) {
-    ss << "Card " << i + 1 << ": " << pile[i]->toString() << "\n";
+  for (int i = 0; i < getSize(); i++) {
+    if (pile[i] != nullptr) {
+      ss << "Card " << i + 1 << ": " << pile[i]->toString() << "\n";
+    }
   }
   std::cout << ss.str();
 }
