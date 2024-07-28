@@ -1,5 +1,6 @@
 #include "deck.h"
 #include "playingCard.h"
+#include <cstddef>
 #include <cstdlib>
 #include <utility>
 
@@ -7,24 +8,18 @@ std::string POPULATION_ERROR = "Can not populate the board, size less than 52";
 std::string NOT_IN_DECK = "Card ID not found inside deck, no changes made";
 
 /* Deck Constructor */
-Deck::Deck(int size) {
-  deck = new PlayingCard *[size];
+Deck::Deck() {
+  int size = 0;
+  deck.reserve(size);
   deckSize = size;
-}
-
-/* Deck De-Constructor */
-Deck::~Deck() {
-  for (int card = 0; card < deckSize; card++) {
-    delete deck[card];
-  }
-  delete[] deck;
+  std::cout << "Deck created with size: " << size << std::endl;
 }
 
 /* Loops over every card inside the deck, printing each individual one */
 void Deck::toString() {
-  for (int i = 0; i < deckSize; ++i) {
+  for (int i = 0; i < getDeckSize(); i++) {
     if (deck[i] != nullptr) {
-      std::cout << *(deck[i]) << std::endl;
+      std::cout << deck[i]->toString() << std::endl;
     } else {
       std::cout << "Null card at index " << i << std::endl;
     }
@@ -62,16 +57,10 @@ array Add the card to the last position of the new array Delete the original
 array Replace the deck with the new one Increnent the deck size variable by one
 */
 void Deck::addCard(PlayingCard *card) {
-  int deckSize = getDeckSize();
-  PlayingCard **newDeck = new PlayingCard *[deckSize + 1];
-  for (int i = 0; i < deckSize; i++) {
-    newDeck[i] = deck[i];
-  }
-  newDeck[deckSize] = card;
-  delete[] deck;
-  deck = newDeck;
+  deck.push_back(card);
   alterDeckSize(1);
 }
+
 /*
 
 Parameter: int that represents the ID of the card that needs to be removed from
@@ -90,29 +79,19 @@ one
 */
 void Deck::removeCard(int cardID) {
   bool cardInDeck = false;
-  int newDeckSize = deckSize - 1;
-  PlayingCard **newDeck = new PlayingCard *[newDeckSize];
-  int newDeckCounter = 0;
 
   for (int i = 0; i < deckSize; i++) {
     if (deck[i] != nullptr && deck[i]->getID() == cardID) {
+      deck.erase(deck.begin() + i);
       cardInDeck = true;
-    } else {
-      if (newDeckCounter < newDeckSize) {
-        newDeck[newDeckCounter++] = deck[i];
-      }
+      break;
     }
   }
-
   if (!cardInDeck) {
     std::cout << NOT_IN_DECK << std::endl;
-    delete[] newDeck;
     return;
   }
-
-  delete[] deck;
-  deck = newDeck;
-  deckSize = newDeckSize;
+  alterDeckSize(-1);
 }
 /* returns the size of the current deck */
 int Deck::getDeckSize() { return deckSize; }
