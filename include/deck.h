@@ -20,6 +20,8 @@ public:
   void toString();
   void shuffle();
   PlayingCard *operator[](int index) const;
+
+  PlayingCard *getCard();
 };
 
 #endif // DECK_H
