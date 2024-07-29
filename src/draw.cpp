@@ -8,9 +8,10 @@
 std::string TOO_MANY_CARDS = "Too many cards in played hand, can not proceed";
 std::string FULL_DRAW = "Hand is full, can not draw another card";
 void Draw::toString() {
+  std::cout << "Draw toString" << std::endl;
   for (int i = 0; i < DEFAULT_DRAW_SIZE; i++) {
     if (drawPile[i] != nullptr) {
-      drawPile[i]->toString();
+      std::cout << drawPile[i]->toString() << std::endl;
     }
   }
 }
@@ -35,4 +36,12 @@ std::pair<HandType, Points>
 Draw::play(const std::array<PlayingCard, 5> &cards) {
   Hand hand(cards, 0, 0);
   return hand.evaluate();
+}
+
+void Draw::drawTillFull(Deck &deck) {
+  for (int i = 0; i < DEFAULT_DRAW_SIZE; i++) {
+    if (drawPile[i] == nullptr) {
+      drawCard(deck);
+    }
+  }
 }

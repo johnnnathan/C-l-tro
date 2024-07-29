@@ -1,5 +1,6 @@
 #include "deck.h"
 #include "discardPile.h" // Assuming this is correctly implemented
+#include "draw.h"
 
 int main() {
   // Create a deck with a fixed size (for simplicity, using 5 cards)
@@ -10,9 +11,8 @@ int main() {
   deck.toString();
 
   DiscardPile discardPile(52);
-
-  while (deck.getDeckSize() > 5) {
-  }
-
-  return 0;
+  Draw draw;
+  draw.drawTillFull(deck);
+  draw.toString();
+  // something
 }

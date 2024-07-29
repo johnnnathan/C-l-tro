@@ -13,9 +13,15 @@ private:
   PlayingCard *drawPile[DEFAULT_DRAW_SIZE];
 
 public:
+  Draw() {
+    for (int i = 0; i < DEFAULT_DRAW_SIZE; i++) {
+      drawPile[i] = nullptr;
+    }
+  }
   void toString();
   void discardCard(int ID, DiscardPile &pile, Deck &deck);
   void drawCard(Deck &deck);
+  void drawTillFull(Deck &deck);
   std::pair<HandType, Points> play(const std::array<PlayingCard, 5> &cards);
 };
 
