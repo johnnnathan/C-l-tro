@@ -46,6 +46,7 @@ public:
   int8_t getRank() const;
   int8_t getEnhancement() const;
   int8_t getEdition() const;
+  PlayingCard() : id(-1) {} // Default constructo
   int8_t getSeal() const;
   PlayingCard(int8_t rank, int8_t suit, int8_t enhancement, int8_t edition,
               int8_t seal);
