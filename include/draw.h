@@ -23,6 +23,7 @@ public:
   void drawCard(Deck &deck);
   void drawTillFull(Deck &deck);
   std::pair<HandType, Points> play(const std::array<PlayingCard, 5> &cards);
+  PlayingCard *get(int x);
 };
 
 #endif // !DRAW_H

@@ -21,18 +21,25 @@ std::array<int, 5> getInput() {
   return values;
 }
 
-std::array<PlayingCard, 5> getCards(std::array<int, 5> IDs, Deck &deck) {
-
+std::array<PlayingCard, 5> getCards(std::array<int, 5> IDs, Draw &draw) {
   std::array<PlayingCard, 5> playingcards;
   int counter = 0;
-  for (int i = 0; i < deck.getDeckSize(); i++) {
-    for (int j = 0; j < 5; j++) {
-      if (deck[i] != nullptr && deck[i]->getID() == IDs[j]) {
-        playingcards[counter] = *deck[i];
-        counter++;
+  int drawSize = DEFAULT_DRAW_SIZE;
+
+  for (int i = 0; i < drawSize; i++) {
+    PlayingCard *card = draw.get(i);
+
+    if (card != nullptr) {
+      for (int j = 0; j < 5; j++) {
+        if (card->getID() == IDs[j]) {
+          playingcards[counter] = *card;
+          counter++;
+          break;
+        }
       }
     }
   }
+
   return playingcards;
 }
 int main() {
@@ -48,7 +55,7 @@ int main() {
   draw.drawTillFull(deck);
   draw.toString();
   std::array<int, 5> numbers = getInput();
-  std::array<PlayingCard, 5> cards = getCards(numbers, deck);
+  std::array<PlayingCard, 5> cards = getCards(numbers, draw);
   std::cout << cards[0].toString() << '\n';
   std::cout << cards[1].toString() << '\n';
   std::cout << cards[2].toString() << '\n';

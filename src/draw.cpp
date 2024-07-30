@@ -4,6 +4,7 @@
 #include "hand.h"
 #include "handTypes.h"
 #include "playingCard.h"
+#include "tools.h"
 
 std::string TOO_MANY_CARDS = "Too many cards in played hand, can not proceed";
 std::string FULL_DRAW = "Hand is full, can not draw another card";
@@ -22,6 +23,13 @@ void Draw::discardCard(int ID, DiscardPile &pile, Deck &deck) {
       drawCard(deck);
     }
   }
+}
+
+PlayingCard *Draw::get(int x) {
+  if (!checkRange(DEFAULT_DRAW_SIZE, x)) {
+    return nullptr;
+  };
+  return drawPile[x];
 }
 void Draw::drawCard(Deck &deck) {
   for (int i = 0; i < DEFAULT_DRAW_SIZE; i++) {
