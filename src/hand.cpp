@@ -218,30 +218,43 @@ std::pair<HandType, Points> Hand::evaluate() {
   findPairs();
 
   if (isRoyalFlush()) {
+    setPoints(points, 8, 100);
     return std::make_pair(HandType::ROYAL_FLUSH, points);
   } else if (isStraightFlush()) {
+    setPoints(points, 8, 100);
     return std::make_pair(HandType::STRAIGHT_FLUSH, points);
   } else if (isFlushFive()) {
+    setPoints(points, 16, 160);
     return std::make_pair(HandType::FLUSH_FIVE, points);
   } else if (isFiveOfAKind()) {
+    setPoints(points, 12, 120);
     return std::make_pair(HandType::FIVE_OF_A_KIND, points);
   } else if (isFourOfAKind()) {
+    setPoints(points, 7, 60);
     return std::make_pair(HandType::FOUR_OF_A_KIND, points);
   } else if (isFlushHouse()) {
+    setPoints(points, 14, 140);
     return std::make_pair(HandType::FLUSH_HOUSE, points);
   } else if (isFullHouse()) {
+    setPoints(points, 4, 40);
     return std::make_pair(HandType::FULL_HOUSE, points);
   } else if (isFlush()) {
+    setPoints(points, 4, 35);
     return std::make_pair(HandType::FLUSH, points);
   } else if (isStraight()) {
+    setPoints(points, 4, 30);
     return std::make_pair(HandType::STRAIGHT, points);
   } else if (isThreeOfAKind()) {
+    setPoints(points, 3, 30);
     return std::make_pair(HandType::THREE_OF_A_KIND, points);
   } else if (isTwoPair()) {
+    setPoints(points, 2, 20);
     return std::make_pair(HandType::TWO_PAIR, points);
   } else if (isPair()) {
+    setPoints(points, 2, 10);
     return std::make_pair(HandType::ONE_PAIR, points);
   } else if (isHighCard()) {
+    setPoints(points, 1, 5);
     return std::make_pair(HandType::HIGH_CARD, points);
   } else {
     return std::make_pair(HandType::ERROR, points);

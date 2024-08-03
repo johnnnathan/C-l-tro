@@ -53,6 +53,12 @@ std::array<PlayingCard, 5> sortPlayingCards(std::array<PlayingCard, 5> array) {
   }
   return array;
 }
+
+void setPoints(Points &points, int mult, int chips) {
+  points.multiplier = mult;
+  points.chips = chips;
+}
+
 /* set the bits of a variable, data is the template that gets operaterd upon,
  * value is the value that should be added to it, mask is used to determine the
  * amount of bits affected and shift determines which bits onwards get overriden
