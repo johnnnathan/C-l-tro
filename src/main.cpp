@@ -4,6 +4,7 @@
 #include "hand.h"
 #include "playingCard.h"
 #include <array>
+#include <cstdio>
 #include <sstream>
 
 std::array<int, 5> getInput() {
@@ -48,6 +49,7 @@ int main() {
 
   deck.populateBoard();
   deck.shuffle();
+  deck[0]->toString();
   deck.toString();
 
   DiscardPile discardPile(52);
@@ -56,14 +58,12 @@ int main() {
   draw.toString();
   std::array<int, 5> numbers = getInput();
   std::array<PlayingCard, 5> cards = getCards(numbers, draw);
-  std::cout << cards[0].toString() << '\n';
-  std::cout << cards[1].toString() << '\n';
-  std::cout << cards[2].toString() << '\n';
-  std::cout << cards[3].toString() << '\n';
-  std::cout << cards[4].toString() << '\n';
   Hand hand(cards, 0, 0);
   std::pair<HandType, Points> evaluation = hand.evaluate();
   hand.printHandType(evaluation.first);
-  std::cout << evaluation.second.chips << '\n';
+  printf("Multiplier: %d \n", evaluation.second.multiplier);
+  printf("Chips : %d \n", evaluation.second.chips);
+  printf("Total : %d \n",
+         evaluation.second.chips * evaluation.second.multiplier);
   // something
 }

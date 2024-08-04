@@ -1,4 +1,5 @@
 #include "deck.h"
+#include "cardProperties.h"
 #include "playingCard.h"
 #include <cstddef>
 #include <cstdlib>
@@ -29,11 +30,20 @@ void Deck::toString() {
 /* Simple populator method, returns prematurely if the size of the deck is less
   than 52, Could increase the deck size dynamically but I do not care, since
   this will only be used immediately after deck Initialization*/
+
 void Deck::populateBoard() {
-  for (int rank = 0; rank < 13; rank++) {
-    for (int suit = 0; suit < 4; suit++) {
+  const Rank ranks[] = {Rank::TWO, Rank::THREE, Rank::FOUR,  Rank::FIVE,
+                        Rank::SIX, Rank::SEVEN, Rank::EIGHT, Rank::NINE,
+                        Rank::TEN, Rank::JACK,  Rank::QUEEN, Rank::KING,
+                        Rank::ACE};
+  const Suit suits[] = {Suit::HEARTS, Suit::DIAMONDS, Suit::CLUBS,
+                        Suit::SPADES};
+
+  for (Rank rank : ranks) {
+    for (Suit suit : suits) {
       PlayingCard *card =
-          new PlayingCard(rank, suit, NO_ENHANCEMENT, NO_EDITION_CARD, NO_SEAL);
+          new PlayingCard(rank, suit, Enhancement::NO_ENHANCEMENT,
+                          Edition::NO_EDITION_CARD, Seal::NO_SEAL);
       deck.push_back(card);
       alterDeckSize(1);
     }

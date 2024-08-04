@@ -55,8 +55,8 @@ std::array<PlayingCard, 5> sortPlayingCards(std::array<PlayingCard, 5> array) {
 }
 
 void setPoints(Points &points, int mult, int chips) {
-  points.multiplier = mult;
-  points.chips = chips;
+  points.multiplier += mult;
+  points.chips += chips;
 }
 
 /* set the bits of a variable, data is the template that gets operaterd upon,

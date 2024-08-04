@@ -216,33 +216,42 @@ std::pair<HandType, Points> Hand::evaluate() {
     return std::make_pair(HandType::HIGH_CARD, points);
   }
   findPairs();
+  scoreCards();
 
   if (isRoyalFlush()) {
     setPoints(points, 8, 100);
+    setTrueVector();
     return std::make_pair(HandType::ROYAL_FLUSH, points);
   } else if (isStraightFlush()) {
     setPoints(points, 8, 100);
+    setTrueVector();
     return std::make_pair(HandType::STRAIGHT_FLUSH, points);
   } else if (isFlushFive()) {
     setPoints(points, 16, 160);
+    setTrueVector();
     return std::make_pair(HandType::FLUSH_FIVE, points);
   } else if (isFiveOfAKind()) {
     setPoints(points, 12, 120);
+    setTrueVector();
     return std::make_pair(HandType::FIVE_OF_A_KIND, points);
   } else if (isFourOfAKind()) {
     setPoints(points, 7, 60);
     return std::make_pair(HandType::FOUR_OF_A_KIND, points);
   } else if (isFlushHouse()) {
     setPoints(points, 14, 140);
+    setTrueVector();
     return std::make_pair(HandType::FLUSH_HOUSE, points);
   } else if (isFullHouse()) {
     setPoints(points, 4, 40);
+    setTrueVector();
     return std::make_pair(HandType::FULL_HOUSE, points);
   } else if (isFlush()) {
     setPoints(points, 4, 35);
+    setTrueVector();
     return std::make_pair(HandType::FLUSH, points);
   } else if (isStraight()) {
     setPoints(points, 4, 30);
+    setTrueVector();
     return std::make_pair(HandType::STRAIGHT, points);
   } else if (isThreeOfAKind()) {
     setPoints(points, 3, 30);
@@ -258,5 +267,23 @@ std::pair<HandType, Points> Hand::evaluate() {
     return std::make_pair(HandType::HIGH_CARD, points);
   } else {
     return std::make_pair(HandType::ERROR, points);
+  }
+}
+
+std::vector<bool> getTrueVector() {
+  std::vector<bool> trueVector;
+  for (int i = 0; i < 5; i++) {
+    trueVector.push_back(true);
+  }
+  return trueVector;
+}
+
+void Hand::setTrueVector() { positions = getTrueVector(); }
+
+void Hand::scoreCards() {
+  for (int i = 0; i < 5; i++) {
+    if (positions[i]) {
+      points.chips += cards[i].getRank();
+    }
   }
 }

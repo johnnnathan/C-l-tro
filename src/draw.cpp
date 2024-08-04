@@ -9,7 +9,7 @@
 std::string TOO_MANY_CARDS = "Too many cards in played hand, can not proceed";
 std::string FULL_DRAW = "Hand is full, can not draw another card";
 void Draw::toString() {
-  std::cout << "Draw toString" << std::endl;
+  std::cout << "Draw : " << std::endl;
   for (int i = 0; i < DEFAULT_DRAW_SIZE; i++) {
     if (drawPile[i] != nullptr) {
       std::cout << drawPile[i]->toString() << std::endl;

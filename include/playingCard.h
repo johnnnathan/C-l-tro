@@ -1,28 +1,10 @@
-
 #ifndef PLAYINGCARD_H
 #define PLAYINGCARD_H
 
+#include "cardProperties.h"
 #include <cstdint>
 #include <iostream>
 #include <string>
-
-const char NO_ENHANCEMENT = 0;
-const char BONUS = 1;
-const char MULT = 2;
-const char WILD = 3;
-const char GLASS = 4;
-const char STEEL = 5;
-const char STONE = 6;
-const char GOLD = 7;
-const char LUCKY = 8;
-
-const char NO_SEAL = 0;
-const char GOLD_SEAL = 1;
-const char RED_SEAL = 2;
-const char BLUE_SEAL = 3;
-const char PURPLE_SEAL = 4;
-
-const char NO_EDITION_CARD = 0;
 
 void setError(std::string valueType, int rangeEnd);
 
@@ -34,11 +16,11 @@ private:
   uint8_t score;
 
 public:
-  void setSuit(int8_t suit);
-  void setRank(int8_t rank);
-  void setEnhancement(int8_t enhancement);
-  void setEdition(int8_t edition);
-  void setSeal(int8_t seal);
+  void setSuit(Suit suit);
+  void setRank(Rank rank);
+  void setEnhancement(Enhancement enhancement);
+  void setEdition(Edition edition);
+  void setSeal(Seal seal);
   void setScore(int8_t score);
   void set(int max, int value, int shift, uint16_t mask);
   int getID() const;
@@ -48,6 +30,9 @@ public:
   int8_t getEdition() const;
   PlayingCard() : id(-1) {} // Default constructo
   int8_t getSeal() const;
+  PlayingCard(Rank rank, Suit suit, Enhancement enhancement, Edition edition,
+              Seal seal);
+
   PlayingCard(int8_t rank, int8_t suit, int8_t enhancement, int8_t edition,
               int8_t seal);
   unsigned short int getData();

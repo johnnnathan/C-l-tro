@@ -29,6 +29,8 @@ private:
   bool isFlushFive() const;
   bool isHighStraight() const;
   void findPairs();
+  void setTrueVector();
+  void scoreCards();
 
 public:
   Hand(const std::array<PlayingCard, 5> &cards, int multiplier, int chips);
