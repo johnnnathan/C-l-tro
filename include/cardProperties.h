@@ -16,6 +16,7 @@ enum class Rank : int8_t {
   QUEEN = 10,
   KING = 10,
   ACE = 11,
+  ERROR = -1,
 };
 
 enum class Suit : int8_t {

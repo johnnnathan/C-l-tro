@@ -30,11 +30,10 @@ public:
   int8_t getEdition() const;
   PlayingCard() : id(-1) {} // Default constructo
   int8_t getSeal() const;
+  PlayingCard(int zero);
   PlayingCard(Rank rank, Suit suit, Enhancement enhancement, Edition edition,
               Seal seal);
 
-  PlayingCard(int8_t rank, int8_t suit, int8_t enhancement, int8_t edition,
-              int8_t seal);
   unsigned short int getData();
   friend std::ostream &operator<<(std::ostream &os, const PlayingCard &card);
   std::string toString() const;

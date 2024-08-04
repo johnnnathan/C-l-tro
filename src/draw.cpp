@@ -19,9 +19,15 @@ void Draw::toString() {
 void Draw::discardCard(int ID, DiscardPile &pile, Deck &deck) {
   for (int i = 0; i < DEFAULT_DRAW_SIZE; i++) {
     if (drawPile[i] != nullptr && drawPile[i]->getID() == ID) {
-      pile.addCard(drawPile[i]);
-      drawCard(deck);
+      pile.addCard(drawPile[i], deck);
+      drawPile[i] = nullptr;
     }
+  }
+}
+
+void Draw::discardCards(std::array<int, 5> IDs, DiscardPile &pile, Deck &deck) {
+  for (int i = 0; i < 5; i++) {
+    discardCard(IDs[i], pile, deck);
   }
 }
 

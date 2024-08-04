@@ -126,6 +126,10 @@ PlayingCard *Deck::operator[](int index) const {
 }
 
 PlayingCard *Deck::getCard() {
+  if (deckSize == 0) {
+    PlayingCard *NULL_CARD(0);
+    return NULL_CARD;
+  }
   PlayingCard *card = deck[0];
   removeCard(card->getID());
   return card;

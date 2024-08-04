@@ -212,7 +212,7 @@ void Hand::findPairs() {
 }
 
 std::pair<HandType, Points> Hand::evaluate() {
-  if (cards.size() < 5) {
+  if (cards.size() < 5 || isIn(toIntArray(), 0)) {
     return std::make_pair(HandType::HIGH_CARD, points);
   }
   findPairs();

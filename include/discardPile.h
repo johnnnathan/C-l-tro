@@ -13,7 +13,7 @@ private:
 
 public:
   DiscardPile(int initialSize);
-  void addCard(PlayingCard *card);
+  void addCard(PlayingCard *card, Deck &deck);
   void flush(Deck &deck);
   int getSize() const;
   int getCurrentCount() const;

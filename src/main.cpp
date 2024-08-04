@@ -7,12 +7,17 @@
 #include <cstdio>
 #include <sstream>
 
-std::array<int, 5> getInput() {
+std::array<int, 5> getInput(bool &shouldExit) {
   std::array<int, 5> values;
   std::string input;
 
-  std::cout << "Enter 5 integers separated by spaces: ";
+  std::cout << "Enter 5 integers separated by spaces or 'q' to quit: ";
   std::getline(std::cin, input);
+
+  if (input == "q") {
+    shouldExit = true;
+    return values;
+  }
 
   std::istringstream stream(input);
   for (int i = 0; i < 5; ++i) {
@@ -44,26 +49,35 @@ std::array<PlayingCard, 5> getCards(std::array<int, 5> IDs, Draw &draw) {
   return playingcards;
 }
 int main() {
-  // Create a deck with a fixed size (for simplicity, using 5 cards)
   Deck deck;
 
   deck.populateBoard();
   deck.shuffle();
-  deck[0]->toString();
   deck.toString();
 
   DiscardPile discardPile(52);
+
   Draw draw;
-  draw.drawTillFull(deck);
-  draw.toString();
-  std::array<int, 5> numbers = getInput();
-  std::array<PlayingCard, 5> cards = getCards(numbers, draw);
-  Hand hand(cards, 0, 0);
-  std::pair<HandType, Points> evaluation = hand.evaluate();
-  hand.printHandType(evaluation.first);
-  printf("Multiplier: %d \n", evaluation.second.multiplier);
-  printf("Chips : %d \n", evaluation.second.chips);
-  printf("Total : %d \n",
-         evaluation.second.chips * evaluation.second.multiplier);
-  // something
+  bool shouldExit = false;
+  int totalScore{0};
+  while (totalScore < 250 && !shouldExit) {
+    draw.drawTillFull(deck);
+    draw.toString();
+    printf("Cards In Deck : %d \n", deck.getDeckSize());
+    std::array<int, 5> numbers = getInput(shouldExit);
+    if (shouldExit) {
+      break;
+    }
+    std::array<PlayingCard, 5> cards = getCards(numbers, draw);
+    draw.discardCards(numbers, discardPile, deck);
+    Hand hand(cards, 0, 0);
+    std::pair<HandType, Points> evaluation = hand.evaluate();
+    hand.printHandType(evaluation.first);
+    int currentScore = evaluation.second.chips * evaluation.second.multiplier;
+    printf("Multiplier: %d \n", evaluation.second.multiplier);
+    printf("Chips : %d \n", evaluation.second.chips);
+    totalScore += currentScore;
+    printf("Score : %d \n", currentScore);
+    printf("Total Score : %d \n", totalScore);
+  }
 }

@@ -15,16 +15,19 @@ DiscardPile::DiscardPile(int initialSize) : size(initialSize), currentCards(0) {
 }
 
 // Add a card to the discard pile
-void DiscardPile::addCard(PlayingCard *card) {
-  assert(currentCards < size); // Ensure there's space to add the card
+void DiscardPile::addCard(PlayingCard *card, Deck &deck) {
   if (card == nullptr) {
     std::cout << "NULL \n";
   }
   pile[currentCards++] = card;
+  if (currentCards == size) {
+    flush(deck);
+  }
 }
 
 // Flush the discard pile into the deck
 void DiscardPile::flush(Deck &deck) {
+  std::cout << "Flushing into deck ... \n";
   for (int pileIndex = 0; pileIndex < currentCards; pileIndex++) {
     if (pile[pileIndex] != nullptr) {
       deck.addCard(pile[pileIndex]);

@@ -1,9 +1,10 @@
 #include "playingCard.h"
+#include "cardProperties.h"
 #include "tools.h"
 #include <iomanip>
 #include <sstream>
 
-int globalID = 0;
+int globalID = 1;
 
 const int SUIT_SHIFT = 14;
 const int RANK_SHIFT = 10;
@@ -82,6 +83,15 @@ PlayingCard::PlayingCard(Rank rank, Suit suit, Enhancement enhancement,
   setSeal(seal);
 }
 
+PlayingCard::PlayingCard(int zero) {
+  id = 0;
+  data = 0;
+  setRank(Rank::ERROR);
+  setSuit(Suit::HEARTS);
+  setEnhancement(Enhancement::NO_ENHANCEMENT);
+  setEdition(Edition::NO_EDITION_CARD);
+  setSeal(Seal::NO_SEAL);
+}
 /* Interface impmentation for the bitwise operations, the same as the one found
  * in the joker class */
 void PlayingCard::set(int max, int value, int shift, uint16_t mask) {
