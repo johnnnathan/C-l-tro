@@ -75,9 +75,11 @@ void initializeDraw(Draw &draw, Deck &deck) {
 }
 
 void finalizePlay(int mult, int chips, int &totalScore, int level,
-                  int stakeHeight) {
+                  int stakeHeight, int hands, int discards) {
   printf("Level : %d\n", level);
   printf("Stake : %d\n", stakeHeight);
+  printf("Hands Left : %d\n", hands);
+  printf("Discards Left : %d\n", discards);
   int currentScore = mult * chips;
   printf("Multiplier: %d \n", mult);
   printf("Chips : %d \n", chips);
@@ -143,7 +145,7 @@ bool playStage(int stakeHeight, int &level) {
     int mult = points.multiplier;
 
     hand.printHandType(type);
-    finalizePlay(mult, chips, totalScore, level, stakeHeight);
+    finalizePlay(mult, chips, totalScore, level, stakeHeight, hands, discards);
   }
 
   if (totalScore >= stakeHeight) {
