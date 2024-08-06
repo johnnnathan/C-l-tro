@@ -7,6 +7,8 @@
 #include <string>
 
 void setError(std::string valueType, int rangeEnd);
+int getGlobalID();
+void resetGlobalID();
 
 class PlayingCard {
 private:

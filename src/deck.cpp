@@ -10,6 +10,7 @@ std::string NOT_IN_DECK = "Card ID not found inside deck, no changes made";
 
 /* Deck Constructor */
 Deck::Deck() {
+  resetGlobalID();
   int size = 0;
   deck.reserve(size);
   deckSize = size;

@@ -4,8 +4,7 @@
 #include <iomanip>
 #include <sstream>
 
-int globalID = 1;
-
+int globalID{1};
 const int SUIT_SHIFT = 14;
 const int RANK_SHIFT = 10;
 const int ENHANCEMENT_SHIFT = 6;
@@ -15,6 +14,10 @@ const int SEAL_SHIFT = 0;
 const uint16_t BIT_2MASK = 0x3; // 2-bit mask
 const uint16_t BIT_3MASK = 0x7; // 3-bit mask
 const uint16_t BIT_4MASK = 0xF; // 4-bit mask
+
+int getGlobalID() { return globalID; }
+
+void resetGlobalID() { globalID = 1; }
 
 /* Method to generate a random color for the toString method, making it simpler
  * to read when put next to multiple other toString results */

@@ -3,28 +3,38 @@
 #include "draw.h"
 #include "hand.h"
 #include "playingCard.h"
+#include "tools.h"
 #include <array>
+#include <cmath>
 #include <cstdio>
 #include <sstream>
 
-std::array<int, 5> getInput(bool &shouldExit) {
-  std::array<int, 5> values;
-  std::string input;
+const std::string CARD_NOT_FOUND = "Card ID not found";
+const std::string NO_DISCARDS = "No discards left";
 
-  std::cout << "Enter 5 integers separated by spaces or 'q' to quit: ";
+std::pair<std::array<int, 5>, char> getInput(bool &shouldExit) {
+  std::array<int, 5> values = {0, 0, 0, 0, 0};
+  std::string input;
+  char action = ' ';
+
+  std::cout << "Enter 'p' to play or 'd' to discard followed by 5 integers "
+               "separated by spaces, or 'q' to quit: ";
   std::getline(std::cin, input);
 
   if (input == "q") {
     shouldExit = true;
-    return values;
+    return {values, action};
   }
 
   std::istringstream stream(input);
-  for (int i = 0; i < 5; ++i) {
-    stream >> values[i];
-  }
+  stream >> action;
 
-  return values;
+  if (action == 'p' || action == 'd') {
+    for (int i = 0; i < 5; ++i) {
+      stream >> values[i];
+    }
+  }
+  return {values, action};
 }
 
 std::array<PlayingCard, 5> getCards(std::array<int, 5> IDs, Draw &draw) {
@@ -35,49 +45,123 @@ std::array<PlayingCard, 5> getCards(std::array<int, 5> IDs, Draw &draw) {
   for (int i = 0; i < drawSize; i++) {
     PlayingCard *card = draw.get(i);
 
-    if (card != nullptr) {
-      for (int j = 0; j < 5; j++) {
-        if (card->getID() == IDs[j]) {
-          playingcards[counter] = *card;
-          counter++;
-          break;
-        }
+    if (card == nullptr) {
+      printError(CARD_NOT_FOUND);
+      break;
+    }
+
+    for (int j = 0; j < 5; j++) {
+      if (card->getID() == IDs[j]) {
+        playingcards[counter] = *card;
+        counter++;
+        break;
       }
     }
   }
 
   return playingcards;
 }
-int main() {
-  Deck deck;
 
+void initializeDeck(Deck &deck) {
   deck.populateBoard();
   deck.shuffle();
   deck.toString();
+}
 
+void initializeDraw(Draw &draw, Deck &deck) {
+  draw.drawTillFull(deck);
+  draw.toString();
+  printf("Cards In Deck : %d \n", deck.getDeckSize());
+}
+
+void finalizePlay(int mult, int chips, int &totalScore, int level,
+                  int stakeHeight) {
+  printf("Level : %d\n", level);
+  printf("Stake : %d\n", stakeHeight);
+  int currentScore = mult * chips;
+  printf("Multiplier: %d \n", mult);
+  printf("Chips : %d \n", chips);
+  totalScore += currentScore;
+  printf("Score : %d \n", currentScore);
+  printf("Total Score : %d \n", totalScore);
+}
+int calculateStake(int &level) {
+  const int baseStake = 100;
+
+  const double growthRate = 1.5;
+
+  int stake = static_cast<int>(baseStake * std::pow(growthRate, level - 1));
+
+  return std::max(stake, baseStake);
+}
+
+bool playStage(int stakeHeight, int &level) {
+
+  Deck deck;
+  initializeDeck(deck);
   DiscardPile discardPile(52);
-
   Draw draw;
-  bool shouldExit = false;
+
+  int hands{3};
+  int discards{3};
   int totalScore{0};
-  while (totalScore < 250 && !shouldExit) {
-    draw.drawTillFull(deck);
-    draw.toString();
-    printf("Cards In Deck : %d \n", deck.getDeckSize());
-    std::array<int, 5> numbers = getInput(shouldExit);
+
+  bool shouldExit = false;
+
+  while (totalScore < stakeHeight && !shouldExit && hands != 0) {
+    initializeDraw(draw, deck);
+
+    std::pair<std::array<int, 5>, char> numbers = getInput(shouldExit);
     if (shouldExit) {
-      break;
+      return false;
     }
-    std::array<PlayingCard, 5> cards = getCards(numbers, draw);
-    draw.discardCards(numbers, discardPile, deck);
+    std::array<int, 5> cardIds = numbers.first;
+    char action = numbers.second;
+
+    /* The following might be the best code piece of code In this project */
+    std::array<PlayingCard, 5> cards = getCards(cardIds, draw);
+
+    switch (action) {
+    case 'd':
+      if (discards != 0) {
+        draw.discardCards(cardIds, discardPile, deck);
+        discards -= 1;
+      } else {
+        printError(NO_DISCARDS);
+      }
+      continue;
+    case 'p':
+      draw.discardCards(cardIds, discardPile, deck);
+      hands -= 1;
+    }
     Hand hand(cards, 0, 0);
+
     std::pair<HandType, Points> evaluation = hand.evaluate();
-    hand.printHandType(evaluation.first);
-    int currentScore = evaluation.second.chips * evaluation.second.multiplier;
-    printf("Multiplier: %d \n", evaluation.second.multiplier);
-    printf("Chips : %d \n", evaluation.second.chips);
-    totalScore += currentScore;
-    printf("Score : %d \n", currentScore);
-    printf("Total Score : %d \n", totalScore);
+    HandType type = evaluation.first;
+    Points points = evaluation.second;
+    int chips = points.chips;
+    int mult = points.multiplier;
+
+    hand.printHandType(type);
+    finalizePlay(mult, chips, totalScore, level, stakeHeight);
+  }
+
+  if (totalScore >= stakeHeight) {
+    printf("Congratulations, you beat level %d!!!\n", level);
+    return true;
+  }
+  if (hands == 0) {
+    printf("DEFEAT\nLevel : %d\n", level);
+  }
+  return false;
+}
+
+int main() {
+  int level = 1;
+  bool keepPlaying{true};
+  while (keepPlaying) {
+    int stake = calculateStake(level);
+    keepPlaying = playStage(stake, level);
+    level++;
   }
 }
