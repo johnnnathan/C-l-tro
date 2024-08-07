@@ -25,13 +25,15 @@ public:
   void setSeal(Seal seal);
   void setScore(int8_t score);
   void set(int max, int value, int shift, uint16_t mask);
+
   int getID() const;
-  int8_t getSuit() const;
-  int8_t getRank() const;
-  int8_t getEnhancement() const;
-  int8_t getEdition() const;
+  Suit getSuit() const;
+  Rank getRank() const;
+  Enhancement getEnhancement() const;
+  Edition getEdition() const;
+  Seal getSeal() const;
+
   PlayingCard() : id(-1) {} // Default constructo
-  int8_t getSeal() const;
   PlayingCard(int zero);
   PlayingCard(Rank rank, Suit suit, Enhancement enhancement, Edition edition,
               Seal seal);

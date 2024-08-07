@@ -18,7 +18,7 @@ std::array<int, 5> Hand::toIntArray() const {
   }
 
   for (int i = 0; i < 5; i++) {
-    result[i] = cards[i].getRank();
+    result[i] = static_cast<int>(cards[i].getRank());
   }
   return result;
 }
@@ -142,7 +142,9 @@ bool Hand::isStraight() const {
   std::array<PlayingCard, 5> cardArray = cards;
   cardArray = sortPlayingCards(cardArray);
   for (int i = 0; i < 4; i++) {
-    if (cardArray[i].getRank() - cardArray[i + 1].getRank() != 1) {
+    if (static_cast<int>(cardArray[i].getRank()) -
+            static_cast<int>(cardArray[i + 1].getRank()) !=
+        1) {
       flag = false;
       break;
     }
@@ -188,7 +190,7 @@ void Hand::findPairs() {
   int ranks[13] = {0};
 
   for (int i = 0; i < cardCount; i++) {
-    ranks[cards[i].getRank()] += 1;
+    ranks[static_cast<int>(cards[i].getRank())] += 1;
   }
 
   for (int i = 0; i < 13; i++) {
@@ -201,8 +203,8 @@ void Hand::findPairs() {
   }
 
   for (int i = 0; i < cardCount; i++) {
-    if (ranks[cards[i].getRank()] == pairCount.first ||
-        ranks[cards[i].getRank()] == pairCount.second) {
+    if (ranks[static_cast<int>(cards[i].getRank())] == pairCount.first ||
+        ranks[static_cast<int>(cards[i].getRank())] == pairCount.second) {
       positions[i] = true;
     }
   }
@@ -284,7 +286,7 @@ void Hand::setTrueVector() { positions = getTrueVector(); }
 void Hand::scoreCards() {
   for (int i = 0; i < 5; i++) {
     if (positions[i]) {
-      points.chips += cards[i].getRank();
+      points.chips += static_cast<int>(cards[i].getRank());
     }
   }
 }

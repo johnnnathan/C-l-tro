@@ -33,32 +33,29 @@ std::string getRandomColorCode() {
   int randomIndex = rand() % 6;
   return colors[randomIndex];
 }
-
 /* toString implementation of playingCard object */
-
 std::string PlayingCard::toString() const {
   // Maximum widths for each attribute
   const int ID_WIDTH = 2;
-  const int RANK_WIDTH = 2;
-  const int SUIT_WIDTH = 2;
-  const int ENHANCEMENT_WIDTH = 2;
-  const int EDITION_WIDTH = 2;
-  const int SEAL_WIDTH = 2;
+  const int RANK_WIDTH = 15;
+  const int SUIT_WIDTH = 10;
+  const int ENHANCEMENT_WIDTH = 15;
+  const int EDITION_WIDTH = 15;
+  const int SEAL_WIDTH = 15;
 
   std::stringstream ss;
-  ss << getRandomColorCode() << " ID: " << std::setw(ID_WIDTH)
-     << std::setfill(' ') << getID() << " Rank: " << std::setw(RANK_WIDTH)
-     << std::setfill(' ') << static_cast<int>(getRank())
-     << " Suit: " << std::setw(SUIT_WIDTH) << std::setfill(' ')
-     << static_cast<int>(getSuit())
-     << " Enhancement: " << std::setw(ENHANCEMENT_WIDTH) << std::setfill(' ')
-     << static_cast<int>(getEnhancement())
-     << " Edition: " << std::setw(EDITION_WIDTH) << std::setfill(' ')
-     << static_cast<int>(getEdition()) << " Seal: " << std::setw(SEAL_WIDTH)
-     << std::setfill(' ') << static_cast<int>(getSeal()) << "\033[0m";
+  ss << getRandomColorCode() << "ID: " << std::setw(ID_WIDTH)
+     << std::setfill(' ') << getID() << "  Rank: " << std::setw(RANK_WIDTH)
+     << std::setfill(' ') << rankToString(getRank())
+     << "  Suit: " << std::setw(SUIT_WIDTH) << std::setfill(' ')
+     << suitToString(getSuit())
+     << "  Enhancement: " << std::setw(ENHANCEMENT_WIDTH) << std::setfill(' ')
+     << enhancementToString(getEnhancement())
+     << "  Edition: " << std::setw(EDITION_WIDTH) << std::setfill(' ')
+     << editionToString(getEdition()) << "  Seal: " << std::setw(SEAL_WIDTH)
+     << std::setfill(' ') << sealToString(getSeal()) << "\033[0m";
   return ss.str();
 }
-
 /* override of << operator, to allow cards to be printed */
 std::ostream &operator<<(std::ostream &os, const PlayingCard &card) {
   os << card.toString();
@@ -134,16 +131,22 @@ operator with the mask
 
 int PlayingCard::getID() const { return id; }
 
-int8_t PlayingCard::getSuit() const { return (data >> SUIT_SHIFT) & BIT_2MASK; }
-
-int8_t PlayingCard::getRank() const { return (data >> RANK_SHIFT) & BIT_4MASK; }
-
-int8_t PlayingCard::getEnhancement() const {
-  return (data >> ENHANCEMENT_SHIFT) & BIT_4MASK;
+Suit PlayingCard::getSuit() const {
+  return static_cast<Suit>((data >> SUIT_SHIFT) & BIT_2MASK);
 }
 
-int8_t PlayingCard::getEdition() const {
-  return (data >> EDITION_SHIFT) & BIT_3MASK;
+Rank PlayingCard::getRank() const {
+  return static_cast<Rank>((data >> RANK_SHIFT) & BIT_4MASK);
 }
 
-int8_t PlayingCard::getSeal() const { return data & BIT_3MASK; }
+Enhancement PlayingCard::getEnhancement() const {
+  return static_cast<Enhancement>((data >> ENHANCEMENT_SHIFT) & BIT_4MASK);
+}
+
+Edition PlayingCard::getEdition() const {
+  return static_cast<Edition>((data >> EDITION_SHIFT) & BIT_3MASK);
+}
+
+Seal PlayingCard::getSeal() const {
+  return static_cast<Seal>(data & BIT_3MASK);
+}
