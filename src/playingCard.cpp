@@ -36,12 +36,12 @@ std::string getRandomColorCode() {
 /* toString implementation of playingCard object */
 std::string PlayingCard::toString() const {
   // Maximum widths for each attribute
-  const int ID_WIDTH = 2;
-  const int RANK_WIDTH = 15;
+  const int ID_WIDTH = 3;
+  const int RANK_WIDTH = 5;
   const int SUIT_WIDTH = 10;
   const int ENHANCEMENT_WIDTH = 15;
   const int EDITION_WIDTH = 15;
-  const int SEAL_WIDTH = 15;
+  const int SEAL_WIDTH = 10;
 
   std::stringstream ss;
   ss << getRandomColorCode() << "ID: " << std::setw(ID_WIDTH)
@@ -83,14 +83,27 @@ PlayingCard::PlayingCard(Rank rank, Suit suit, Enhancement enhancement,
   setSeal(seal);
 }
 
-PlayingCard::PlayingCard(int zero) {
-  id = 0;
-  data = 0;
-  setRank(Rank::ERROR);
-  setSuit(Suit::HEARTS);
-  setEnhancement(Enhancement::NO_ENHANCEMENT);
-  setEdition(Edition::NO_EDITION_CARD);
-  setSeal(Seal::NO_SEAL);
+PlayingCard::PlayingCard(int type) {
+  switch (type) {
+  case 0:
+    id = 0;
+    data = 0;
+    setRank(Rank::ERROR);
+    setSuit(Suit::HEARTS);
+    setEnhancement(Enhancement::NO_ENHANCEMENT);
+    setEdition(Edition::NO_EDITION_CARD);
+    setSeal(Seal::NO_SEAL);
+    return;
+  case 1:
+    id = globalID;
+    globalID += 1;
+    setRank(static_cast<Rank>(rand() % 14));
+    setSuit(static_cast<Suit>(rand() % 4));
+    setEnhancement(static_cast<Enhancement>(rand() % 9));
+    setEdition(static_cast<Edition>(rand() % 4));
+    setSeal(static_cast<Seal>(rand() % 5));
+    return;
+  }
 }
 /* Interface impmentation for the bitwise operations, the same as the one found
  * in the joker class */
