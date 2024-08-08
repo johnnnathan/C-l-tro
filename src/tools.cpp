@@ -4,6 +4,14 @@
 #include <ostream>
 #include <utility>
 
+/* functions used as pointers in the Effect struct / joker class */
+void add(int &basis, int effect) { basis = basis + effect; }
+void subtract(int &basis, int effect) { basis = basis - effect; }
+void multiply(int &basis, int effect) { basis = basis * effect; }
+void divide(int &basis, int effect) {
+  basis = effect != 0 ? basis / effect : 0;
+}
+
 /* detects if element is inside the given array*/
 bool isIn(std::array<int, 5> array, int number) {
   bool flag = false;
@@ -42,10 +50,10 @@ void printError(std::string error) { std::cout << error << '\n'; }
 std::array<PlayingCard, 5> sortPlayingCards(std::array<PlayingCard, 5> array) {
   for (int i = 1; i < 5; i++) {
     PlayingCard card = array[i];
-    int key = card.getRank();
+    int key = static_cast<int>(card.getRank());
     int j = i - 1;
 
-    while (j >= 0 && key > array[j].getRank()) {
+    while (j >= 0 && key > static_cast<int>(array[j].getRank())) {
       std::swap(array[j], array[j + 1]);
       j -= 1;
     }

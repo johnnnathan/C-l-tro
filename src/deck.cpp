@@ -3,6 +3,7 @@
 #include "playingCard.h"
 #include <cstddef>
 #include <cstdlib>
+#include <sys/wait.h>
 #include <utility>
 
 std::string POPULATION_ERROR = "Can not populate the board, size less than 52";
@@ -46,6 +47,7 @@ void Deck::populateBoard() {
           new PlayingCard(rank, suit, Enhancement::NO_ENHANCEMENT,
                           Edition::NO_EDITION_CARD, Seal::NO_SEAL);
       deck.push_back(card);
+      std::cout << *card << std::endl;
       alterDeckSize(1);
     }
   }

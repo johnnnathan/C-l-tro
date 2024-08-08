@@ -8,6 +8,11 @@
 
 std::array<PlayingCard, 5> sortPlayingCards(std::array<PlayingCard, 5> array);
 
+void add(int &basis, int value);
+void subtract(int &basis, int value);
+void multiply(int &basis, int value);
+void divide(int &basis, int value);
+
 bool isIn(std::array<int, 5> array, int number);
 
 bool areIn(std::array<int, 5> given, std::array<int, 5> wanted);

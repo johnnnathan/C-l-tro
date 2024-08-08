@@ -1,7 +1,8 @@
 #include "joker.h"
-#include "tools.h"
+#include "jokerEffectProperties.h"
 #include <cstdint>
-#include <iostream>
+#include <functional>
+#include <i386/limits.h>
 
 /* Joker constructor */
 Joker::Joker(int activation_code, int rarity, int edition) {
@@ -77,9 +78,63 @@ void Joker::setDescription(std::string text) { description = text; }
 /* setter for Joker Name */
 void Joker::setName(std::string value) { name = value; }
 
+/* Find the type of filter that will be applied to the card selection:
+   -1 for error,
+   0 for no filter,
+   1 for value type filter,
+   2 for Suit type filter,
+   3 for rank type filter
+  */
+int Joker::getFilterType() {
+  int filter;
+  switch (effect.filter) {
+  case Filter::NONE:
+    return filter = 0;
+  case Filter::EVEN:
+  case Filter::ODD:
+    return filter = 1;
+  case Filter::HEARTS:
+  case Filter::CLUBS:
+  case Filter::SPADES:
+  case Filter::DIAMONDS:
+    return filter = 2;
+  case Filter::FACE:
+  case Filter::ACE:
+    return filter = 3;
+  }
+  return -1;
+}
+// something
+/* Taking into consideration the filter type from the getFilterType method we
+   evaluate the condition and return true if it is to be accepted */
+bool Joker::evaluateFilter(PlayingCard *card, int type) {
+  Filter filter = effect.filter;
+  switch (type) {
+  case 0:
+    return true;
+  case 1:
+    if (filter == Filter::EVEN) {
+      return static_cast<int>(card->getRank()) % 2 == 0;
+    }
+  }
+  return true;
+}
+
+/* Use the Effect stuct to operate upon the rest of the values */
+void Joker::operate(PlayingCard *card, int &money, Points &points, Deck &deck) {
+
+  std::unordered_map<Target, int *> targetMap = {
+      {Target::CHIPS, &points.chips},
+      {Target::MULTIPLIER, &points.multiplier},
+      {Target::MONEY, &money}};
+  int &value = *targetMap[effect.target];
+  int filter = getFilterType();
+  func = operationMap[effect.operation];
+  Target target = effect.target;
+}
+
 /* toString implementation for Joker object */
 void Joker::toString() {
-  std::ostringstream oss;
   std::cout << "Joker [Activation Code: " << getActivatedOn()
             << ", Rarity: " << getRarity() << ", Edition: " << getEdition()
             << ", Data: " << static_cast<int>(data)

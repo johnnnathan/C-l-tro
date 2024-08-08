@@ -157,15 +157,15 @@ bool playStage(int stakeHeight, int &level) {
   }
   return false;
 }
-
+// something
 int main() {
-
+  int something = 1;
   int level = 1;
   bool keepPlaying{true};
-  std::srand(time(0));
-  for (int i = 0; i < 15; i++) {
-    PlayingCard card(1);
-    card.toString();
-    std::cout << card << std::endl;
+  Deck deck;
+  while (keepPlaying) {
+    int stake = calculateStake(level);
+    keepPlaying = playStage(stake, level);
+    level++;
   }
 }

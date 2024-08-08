@@ -4,7 +4,8 @@
 #include <cstdint>
 #include <string>
 enum class Rank : int8_t {
-  TWO = 2,
+  ACE,
+  TWO,
   THREE,
   FOUR,
   FIVE,
@@ -13,7 +14,6 @@ enum class Rank : int8_t {
   EIGHT,
   NINE,
   TEN,
-  ACE,
   JACK,
   QUEEN,
   KING,

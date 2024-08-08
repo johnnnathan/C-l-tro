@@ -186,13 +186,15 @@ void Hand::findPairs() {
   std::pair<int, int> pairCount = {0, 0};
   int cardCount =
       cards.size(); // might be able to use sizeof(cards)/sizeof(PlayingCard)
-  std::vector<bool> positions(cardCount, false);
+  std::vector<bool> pos;
   int ranks[13] = {0};
 
+  // populate the ranks array with the count of appearance of each rank
   for (int i = 0; i < cardCount; i++) {
     ranks[static_cast<int>(cards[i].getRank())] += 1;
   }
 
+  // loop over all of the ranks and find the two most common ranks
   for (int i = 0; i < 13; i++) {
     if (ranks[i] > pairCount.first) {
       pairCount.second = pairCount.first;
@@ -202,75 +204,85 @@ void Hand::findPairs() {
     }
   }
 
+  // loop over the cards in the hand and set its position to be true in the
+  // array
   for (int i = 0; i < cardCount; i++) {
-    if (ranks[static_cast<int>(cards[i].getRank())] == pairCount.first ||
-        ranks[static_cast<int>(cards[i].getRank())] == pairCount.second) {
-      positions[i] = true;
+    bool flag = false;
+    if ((pairCount.first > 1 &&
+         ranks[static_cast<int>(cards[i].getRank())] == pairCount.first) ||
+        pairCount.second > 1 &&
+            ranks[static_cast<int>(cards[i].getRank())] == pairCount.second) {
+      flag = true;
     }
+    pos.push_back(flag);
+    std::cout << pos[i] << ' ' << static_cast<int>(cards[i].getRank()) << '\n';
   }
 
   this->pairTypes = pairCount;
-  this->positions = positions;
+  this->positions = pos;
 }
 
 std::pair<HandType, Points> Hand::evaluate() {
-  if (cards.size() < 5 || isIn(toIntArray(), 0)) {
+  if (cards.size() != 5 || isIn(toIntArray(), 0)) {
     setPoints(points, 1, 5);
     return std::make_pair(HandType::HIGH_CARD, points);
   }
+  HandType type;
   findPairs();
-  scoreCards();
 
   if (isRoyalFlush()) {
-    setPoints(points, 8, 100);
     setTrueVector();
-    return std::make_pair(HandType::ROYAL_FLUSH, points);
+    setPoints(points, 8, 100);
+    type = HandType::ROYAL_FLUSH;
   } else if (isStraightFlush()) {
+    setTrueVector();
     setPoints(points, 8, 100);
-    setTrueVector();
-    return std::make_pair(HandType::STRAIGHT_FLUSH, points);
+    type = HandType::STRAIGHT_FLUSH;
   } else if (isFlushFive()) {
+    setTrueVector();
     setPoints(points, 16, 160);
-    setTrueVector();
-    return std::make_pair(HandType::FLUSH_FIVE, points);
+    type = HandType::FLUSH_FIVE;
   } else if (isFiveOfAKind()) {
-    setPoints(points, 12, 120);
     setTrueVector();
-    return std::make_pair(HandType::FIVE_OF_A_KIND, points);
+    setPoints(points, 12, 120);
+    type = HandType::FIVE_OF_A_KIND;
   } else if (isFourOfAKind()) {
     setPoints(points, 7, 60);
-    return std::make_pair(HandType::FOUR_OF_A_KIND, points);
+    type = HandType::FOUR_OF_A_KIND;
   } else if (isFlushHouse()) {
+    setTrueVector();
     setPoints(points, 14, 140);
-    setTrueVector();
-    return std::make_pair(HandType::FLUSH_HOUSE, points);
+    type = HandType::FLUSH_HOUSE;
   } else if (isFullHouse()) {
+    setTrueVector();
     setPoints(points, 4, 40);
-    setTrueVector();
-    return std::make_pair(HandType::FULL_HOUSE, points);
+    type = HandType::FULL_HOUSE;
   } else if (isFlush()) {
+    setTrueVector();
     setPoints(points, 4, 35);
-    setTrueVector();
-    return std::make_pair(HandType::FLUSH, points);
+    type = HandType::FLUSH;
   } else if (isStraight()) {
-    setPoints(points, 4, 30);
     setTrueVector();
-    return std::make_pair(HandType::STRAIGHT, points);
+    setPoints(points, 4, 30);
+    type = HandType::STRAIGHT;
   } else if (isThreeOfAKind()) {
     setPoints(points, 3, 30);
-    return std::make_pair(HandType::THREE_OF_A_KIND, points);
+    type = HandType::THREE_OF_A_KIND;
   } else if (isTwoPair()) {
     setPoints(points, 2, 20);
-    return std::make_pair(HandType::TWO_PAIR, points);
+    type = HandType::TWO_PAIR;
   } else if (isPair()) {
     setPoints(points, 2, 10);
-    return std::make_pair(HandType::ONE_PAIR, points);
+    type = HandType::ONE_PAIR;
   } else if (isHighCard()) {
     setPoints(points, 1, 5);
-    return std::make_pair(HandType::HIGH_CARD, points);
+    type = HandType::HIGH_CARD;
   } else {
     return std::make_pair(HandType::ERROR, points);
   }
+
+  scoreCards();
+  return std::make_pair(type, points);
 }
 
 std::vector<bool> getTrueVector() {
@@ -284,9 +296,14 @@ std::vector<bool> getTrueVector() {
 void Hand::setTrueVector() { positions = getTrueVector(); }
 
 void Hand::scoreCards() {
+  int rankValue;
   for (int i = 0; i < 5; i++) {
     if (positions[i]) {
-      points.chips += static_cast<int>(cards[i].getRank());
+      rankValue = static_cast<int>(cards[i].getRank());
     }
+    if (rankValue > 11) {
+      rankValue = 10;
+    }
+    points.chips += rankValue;
   }
 }
