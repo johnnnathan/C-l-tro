@@ -3,8 +3,9 @@
 
 #include <cstdint>
 #include <string>
+// Rank enum
 enum class Rank : int8_t {
-  ACE,
+  ERROR = 1,
   TWO,
   THREE,
   FOUR,
@@ -17,9 +18,9 @@ enum class Rank : int8_t {
   JACK,
   QUEEN,
   KING,
-  ERROR = -1,
+  ACE,
 };
-
+// something
 enum class Suit : int8_t {
   HEARTS,
   CLUBS,

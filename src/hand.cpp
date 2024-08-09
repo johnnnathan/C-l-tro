@@ -3,6 +3,7 @@
 #include "points.h"
 #include "tools.h"
 #include <array>
+#include <sys/_types/_sigaltstack.h>
 #include <utility>
 
 std::string WRONG_HAND_SIZE = "Hand size not 5, can not proceed";
@@ -168,6 +169,18 @@ bool Hand::isHighStraight() const {
   return areIn(intArray, wanted);
 }
 
+void Hand::findRankOccurences(int (&ranks)[13], int cardCount) {
+  // Populate the ranks array with the count of appearance of each rank
+  for (int i = 0; i < cardCount; i++) {
+    int rankIndex = static_cast<int>(cards[i].getRank());
+    if (rankIndex < 0 || rankIndex > 12) {
+      printf("Error: Rank index out of bounds: %d\n", rankIndex);
+      abort(); // This should never happen
+    }
+    ranks[rankIndex] += 1;
+  }
+}
+
 bool Hand::isFlushHouse() const {
   if (isFlush() && isFullHouse()) {
     return true;
@@ -182,19 +195,8 @@ bool Hand::isFlushFive() const {
   return false;
 }
 
-void Hand::findPairs() {
-  std::pair<int, int> pairCount = {0, 0};
-  int cardCount =
-      cards.size(); // might be able to use sizeof(cards)/sizeof(PlayingCard)
-  std::vector<bool> pos;
-  int ranks[13] = {0};
-
-  // populate the ranks array with the count of appearance of each rank
-  for (int i = 0; i < cardCount; i++) {
-    ranks[static_cast<int>(cards[i].getRank())] += 1;
-  }
-
-  // loop over all of the ranks and find the two most common ranks
+void Hand::findCommonPairs(std::pair<int, int> &pairCount, int (&ranks)[13]) {
+  // Loop over all of the ranks and find the two most common ranks
   for (int i = 0; i < 13; i++) {
     if (ranks[i] > pairCount.first) {
       pairCount.second = pairCount.first;
@@ -203,27 +205,66 @@ void Hand::findPairs() {
       pairCount.second = ranks[i];
     }
   }
+}
 
-  // loop over the cards in the hand and set its position to be true in the
+std::vector<bool> Hand::determinePositions(std::pair<int, int> &pairCount,
+                                           int cardCount, int (&ranks)[13]) {
+  // Loop over the cards in the hand and set its position to be true in the
   // array
-  for (int i = 0; i < cardCount; i++) {
-    bool flag = false;
-    if ((pairCount.first > 1 &&
-         ranks[static_cast<int>(cards[i].getRank())] == pairCount.first) ||
-        pairCount.second > 1 &&
-            ranks[static_cast<int>(cards[i].getRank())] == pairCount.second) {
-      flag = true;
+  std::vector<bool> pos(
+      cardCount, false); // Initialize positions with `false` for all cards
+  int max{0};
+  int maxIndex{0};
+
+  if (pairCount.first == 1) {
+    // High card scenario
+    for (int i = 0; i < cardCount; i++) {
+      int currentRank = static_cast<int>(cards[i].getRank());
+      if (max < currentRank) {
+        max = currentRank;
+        maxIndex = i;
+      }
     }
-    pos.push_back(flag);
-    std::cout << pos[i] << ' ' << static_cast<int>(cards[i].getRank()) << '\n';
+    pos[maxIndex] = true;
+  } else {
+    // Pair or higher scenarios
+    for (int i = 0; i < cardCount; i++) {
+      int currentRank = static_cast<int>(cards[i].getRank()) + 2;
+      bool flag = false;
+      if ((pairCount.first > 1 && ranks[currentRank] == pairCount.first) ||
+          (pairCount.second > 1 && ranks[currentRank] == pairCount.second)) {
+        flag = true;
+      }
+      pos[i] = flag;
+    }
   }
+  return pos;
+}
+
+void Hand::findPairs() {
+  std::pair<int, int> pairCount = {0, 0};
+  int cardCount = cards.size();
+
+  // Debug: Print the size of the hand
+
+  int ranks[13] = {0}; // Array to count ranks from 0 to 12
+
+  findRankOccurences(ranks, cardCount);
+
+  findCommonPairs(pairCount, ranks);
+
+  positions = determinePositions(pairCount, cardCount, ranks);
+  for (int i = 0; i < 5; i++) {
+    std::cout << positions[i] << std::endl;
+  }
+  std::cout << std::flush;
 
   this->pairTypes = pairCount;
-  this->positions = pos;
 }
 
 std::pair<HandType, Points> Hand::evaluate() {
   if (cards.size() != 5 || isIn(toIntArray(), 0)) {
+    printf("Not a 5 card hand, High_Card Awarded");
     setPoints(points, 1, 5);
     return std::make_pair(HandType::HIGH_CARD, points);
   }
@@ -298,10 +339,16 @@ void Hand::setTrueVector() { positions = getTrueVector(); }
 void Hand::scoreCards() {
   int rankValue;
   for (int i = 0; i < 5; i++) {
-    if (positions[i]) {
-      rankValue = static_cast<int>(cards[i].getRank());
+    rankValue = 0;
+    int temp = positions[i];
+    if (temp == 1) {
+      rankValue = 2 + static_cast<int>(
+                          cards[i].getRank()); // very ugly but can not spend
+                                               // the time now to fix it
     }
-    if (rankValue > 11) {
+    if (rankValue == 14) {
+      rankValue = 11;
+    } else if (rankValue > 10) {
       rankValue = 10;
     }
     points.chips += rankValue;

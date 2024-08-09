@@ -31,6 +31,10 @@ private:
   void findPairs();
   void setTrueVector();
   void scoreCards();
+  void findRankOccurences(int (&ranks)[13], int cardCount);
+  void findCommonPairs(std::pair<int, int> &pairCount, int (&ranks)[13]);
+  std::vector<bool> determinePositions(std::pair<int, int> &pairCount,
+                                       int cardCount, int (&ranks)[13]);
 
 public:
   Hand(const std::array<PlayingCard, 5> &cards, int multiplier, int chips);
