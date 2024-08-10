@@ -5,18 +5,10 @@
 #include "jokerEffectProperties.h"
 #include "playingCard.h"
 #include "points.h"
-#include "tools.h"
 #include <cstdint>
 #include <string>
-#include <strstream>
-#include <unordered_map>
 
 // Map to associate Operation enum with function pointers
-std::unordered_map<Operation, std::function<void(int &, int)>> operationMap = {
-    {Operation::ADD, add},
-    {Operation::SUBTRACT, subtract},
-    {Operation::MULTIPLY, multiply},
-};
 
 const std::string OUT_OF_RANGE_ERROR = "The given value is out of range";
 

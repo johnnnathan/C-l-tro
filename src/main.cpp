@@ -3,6 +3,7 @@
 #include "draw.h"
 #include "hand.h"
 #include "playingCard.h"
+#include "shop.h"
 #include "tools.h"
 #include <array>
 #include <cmath>
@@ -162,6 +163,9 @@ int main() {
   int something = 1;
   int level = 1;
   bool keepPlaying{true};
+  Shop shop{};
+  shop.set();
+  shop.print();
   Deck deck;
   while (keepPlaying) {
     int stake = calculateStake(level);

@@ -2,13 +2,14 @@
 #include "jokerEffectProperties.h"
 #include "tools.h"
 #include <cstdint>
-#include <functional>
 #include <i386/limits.h>
 #include <ostream>
 #include <strstream>
+#include <unordered_map>
 
 /* Joker constructor */
-Joker::Joker(int activation_code, int rarity, int edition, Effect effectTBA) {
+Joker::Joker(int activation_code, int rarity, int edition, Effect effectTBA)
+    : data(0), effect({Operation::ADD, Target::NONE, Filter::NONE, 0}) {
   data = 0;
   setRarity(rarity);
   setActivateOn(activation_code);
@@ -146,6 +147,12 @@ void Joker::operate(PlayingCard *card, int &money, Points &points, Deck &deck) {
       {Target::MONEY, &money}};
   int &value = *targetMap[effect.target];
   int filter = getFilterType();
+  std::unordered_map<Operation, std::function<void(int &, int)>> operationMap =
+      {
+          {Operation::ADD, add},
+          {Operation::SUBTRACT, subtract},
+          {Operation::MULTIPLY, multiply},
+      };
   func = operationMap[effect.operation];
   Target target = effect.target;
 }

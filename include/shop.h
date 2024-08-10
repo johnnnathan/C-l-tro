@@ -4,10 +4,13 @@
 #include "cardProperties.h"
 #include "joker.h"
 #include "playingCard.h"
+#include <array>
+#include <utility>
+
 class Shop {
 private:
   std::array<std::pair<PlayingCard *, int>, 3> cards;
-  std::array<std::pair<Joker, int>, 3> jokers;
+  std::array<std::pair<Joker *, int>, 3> jokers;
   Seal seal;
   Enhancement enhancement;
   Edition edition;
@@ -19,6 +22,8 @@ private:
   void setEdition();
 
 public:
+  Shop();
+  ~Shop();
   void set();
   void print();
 };
