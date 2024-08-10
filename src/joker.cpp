@@ -1,15 +1,19 @@
 #include "joker.h"
 #include "jokerEffectProperties.h"
+#include "tools.h"
 #include <cstdint>
 #include <functional>
 #include <i386/limits.h>
+#include <ostream>
+#include <strstream>
 
 /* Joker constructor */
-Joker::Joker(int activation_code, int rarity, int edition) {
+Joker::Joker(int activation_code, int rarity, int edition, Effect effectTBA) {
   data = 0;
   setRarity(rarity);
   setActivateOn(activation_code);
   setEdition(edition);
+  setEffect(effectTBA);
 }
 
 /*
@@ -37,6 +41,19 @@ void Joker::set(int max, int value, int shift, uint8_t mask) {
     return;
   }
   clearAndSet(data, value, mask, shift);
+}
+
+void Joker::setEffect(Effect effectToBeAdded) { effect = effectToBeAdded; }
+
+std::string Joker::getEffect() {
+  std::ostrstream os;
+  std::string operation = operationToString(effect.operation);
+  std::string filter = filterToString(effect.filter);
+  std::string target = targetToString(effect.target);
+  int quan = effect.quantity;
+  os << "Operation : " << operation << " Filter : " << filter
+     << " Target : " << target << '\n';
+  return os.str();
 }
 
 /* getter for Joker Description */
@@ -138,5 +155,6 @@ void Joker::toString() {
   std::cout << "Joker [Activation Code: " << getActivatedOn()
             << ", Rarity: " << getRarity() << ", Edition: " << getEdition()
             << ", Data: " << static_cast<int>(data)
-            << ", Description: " << getDescription() << "]\n";
+            << ", Description: " << getDescription()
+            << ", Effect : " << getEffect() << "]\n";
 }

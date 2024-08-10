@@ -2,11 +2,16 @@
 #ifndef TOOLS_H
 #define TOOLS_H
 
+#include "jokerEffectProperties.h"
 #include "playingCard.h"
 #include "points.h"
 #include <array>
 
 std::array<PlayingCard, 5> sortPlayingCards(std::array<PlayingCard, 5> array);
+
+std::string targetToString(Target target);
+std::string filterToString(Filter filter);
+std::string operationToString(Operation operation);
 
 void add(int &basis, int value);
 void subtract(int &basis, int value);

@@ -1,4 +1,5 @@
 #include "tools.h"
+#include "jokerEffectProperties.h"
 #include <cstdint>
 #include <iostream>
 #include <ostream>
@@ -23,7 +24,63 @@ bool isIn(std::array<int, 5> array, int number) {
   }
   return flag;
 }
+std::string filterToString(Filter filter) {
 
+  switch (filter) {
+  case Filter::NONE:
+    return "None";
+  case Filter::EVEN:
+    return "Even";
+  case Filter::ODD:
+    return "Odd";
+  case Filter::HEARTS:
+    return "Hearts";
+  case Filter::CLUBS:
+    return "Clubs";
+  case Filter::SPADES:
+    return "Spades";
+  case Filter::DIAMONDS:
+    return "Diamonds";
+  case Filter::FACE:
+    return "Face";
+  case Filter::ACE:
+    return "Ace";
+  default:
+    return "Unknown";
+  }
+}
+
+std::string targetToString(Target target) {
+  switch (target) {
+  case Target::CHIPS:
+    return "Chips";
+  case Target::MULTIPLIER:
+    return "Multiplier";
+  case Target::MONEY:
+    return "Money";
+  default:
+    return "Unknown";
+  }
+}
+
+std::string operationToString(Operation operation) {
+  switch (operation) {
+  case Operation::ADD:
+    return "ADD";
+  case Operation::SUBTRACT:
+    return "SUBTRACT";
+  case Operation::MULTIPLY:
+    return "MULTIPLY";
+  case Operation::ADD_CARD:
+    return "ADD_CARD";
+  case Operation::GIVE_SCORE:
+    return "GIVE_SCORE";
+  case Operation::GIVE_ENHANCEMENT:
+    return "GIVE_ENHANCEMENT";
+  default:
+    return "UNKNOWN";
+  }
+}
 /* Same as isIn but for 5 elements instead of just one, could modify it to
  * accept an array with 5 or less elements, but not necessary for now */
 bool areIn(std::array<int, 5> given, std::array<int, 5> wanted) {

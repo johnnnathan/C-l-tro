@@ -8,6 +8,7 @@
 #include "tools.h"
 #include <cstdint>
 #include <string>
+#include <strstream>
 #include <unordered_map>
 
 // Map to associate Operation enum with function pointers
@@ -67,6 +68,7 @@ public:
   void setEdition(int edition);
   void setRarity(int rarity);
   void setActivateOn(int activation_code);
+  void setEffect(Effect effectTBA);
 
   void toString();
 
@@ -76,8 +78,9 @@ public:
   int getEdition();
   int getRarity();
   int getActivatedOn();
+  std::string getEffect();
 
-  Joker(int activation_code, int rarity, int edition);
+  Joker(int activation_code, int rarity, int edition, Effect effectTBA);
 };
 
 #endif // JOKER_H
