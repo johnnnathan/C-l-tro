@@ -1,7 +1,8 @@
 #include "deck.h"
-#include "discardPile.h" // Assuming this is correctly implemented
+#include "discardPile.h"
 #include "draw.h"
 #include "hand.h"
+#include "jokerDeck.h"
 #include "playingCard.h"
 #include "shop.h"
 #include "tools.h"
@@ -98,10 +99,8 @@ int calculateStake(int &level) {
   return std::max(stake, baseStake);
 }
 
-bool playStage(int stakeHeight, int &level) {
+bool playStage(int stakeHeight, int &level, Deck &deck) {
 
-  Deck deck;
-  initializeDeck(deck);
   DiscardPile discardPile(52);
   Draw draw;
 
@@ -158,7 +157,7 @@ bool playStage(int stakeHeight, int &level) {
   }
   return false;
 }
-// something
+
 int main() {
   int something = 1;
   int level = 1;
@@ -166,10 +165,16 @@ int main() {
   Shop shop{};
   shop.set();
   shop.print();
+
   Deck deck;
+  deck.populateBoard();
+  JokerDeck jdeck(5);
+  int money = 5;
   while (keepPlaying) {
     int stake = calculateStake(level);
-    keepPlaying = playStage(stake, level);
+    deck.toString();
+    keepPlaying = playStage(stake, level, deck);
     level++;
+    shop.buy(money, jdeck, deck);
   }
 }

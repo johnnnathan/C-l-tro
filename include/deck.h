@@ -22,6 +22,7 @@ public:
   PlayingCard *operator[](int index) const;
 
   PlayingCard *getCard();
+  PlayingCard *getCard(int ID);
 };
 
 #endif // DECK_H

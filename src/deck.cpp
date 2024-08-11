@@ -137,3 +137,14 @@ PlayingCard *Deck::getCard() {
   removeCard(card->getID());
   return card;
 }
+
+PlayingCard *Deck::getCard(int ID) {
+  for (auto &card : deck) {
+    if (card->getID() == ID) {
+      return card;
+    }
+  }
+  printf("Card not Found");
+  PlayingCard *card = new PlayingCard(0);
+  return card;
+}
