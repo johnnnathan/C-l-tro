@@ -163,3 +163,4 @@ Edition PlayingCard::getEdition() const {
 Seal PlayingCard::getSeal() const {
   return static_cast<Seal>(data & BIT_3MASK);
 }
+int PlayingCard::getScore() const { return score; }

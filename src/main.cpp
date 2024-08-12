@@ -99,7 +99,7 @@ int calculateStake(int &level) {
   return std::max(stake, baseStake);
 }
 
-bool playStage(int stakeHeight, int &level, Deck &deck) {
+bool playStage(int stakeHeight, int &level, Deck &deck, int &money) {
 
   DiscardPile discardPile(52);
   Draw draw;
@@ -138,7 +138,7 @@ bool playStage(int stakeHeight, int &level, Deck &deck) {
     }
     Hand hand(cards, 0, 0);
 
-    std::pair<HandType, Points> evaluation = hand.evaluate();
+    std::pair<HandType, Points> evaluation = hand.evaluate(deck, draw, money);
     HandType type = evaluation.first;
     Points points = evaluation.second;
     int chips = points.chips;
@@ -165,6 +165,7 @@ int main() {
   Shop shop{};
   shop.set();
   shop.print();
+  std::srand(std::time(NULL));
 
   Deck deck;
   deck.populateBoard();
@@ -173,7 +174,7 @@ int main() {
   while (keepPlaying) {
     int stake = calculateStake(level);
     deck.toString();
-    keepPlaying = playStage(stake, level, deck);
+    keepPlaying = playStage(stake, level, deck, money);
     level++;
     shop.buy(money, jdeck, deck);
   }

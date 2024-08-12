@@ -5,6 +5,7 @@
 #include <cstdint>
 #include <iostream>
 #include <string>
+#include <sys/wait.h>
 
 void setError(std::string valueType, int rangeEnd);
 int getGlobalID();
@@ -32,6 +33,7 @@ public:
   Enhancement getEnhancement() const;
   Edition getEdition() const;
   Seal getSeal() const;
+  int getScore() const;
 
   PlayingCard() : id(-1) {} // Default constructo
   PlayingCard(int zero);

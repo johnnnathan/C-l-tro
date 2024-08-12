@@ -1,4 +1,7 @@
 #include "hand.h"
+#include "cardProperties.h"
+#include "deck.h"
+#include "draw.h"
 #include "handTypes.h"
 #include "points.h"
 #include "tools.h"
@@ -262,7 +265,7 @@ void Hand::findPairs() {
   this->pairTypes = pairCount;
 }
 
-std::pair<HandType, Points> Hand::evaluate() {
+std::pair<HandType, Points> Hand::evaluate(Deck &deck, Draw &draw, int &money) {
   if (cards.size() != 5 || isIn(toIntArray(), 0)) {
     printf("Not a 5 card hand, High_Card Awarded");
     setPoints(points, 1, 5);
@@ -322,7 +325,7 @@ std::pair<HandType, Points> Hand::evaluate() {
     return std::make_pair(HandType::ERROR, points);
   }
 
-  scoreCards();
+  scoreCards(deck, draw, money);
   return std::make_pair(type, points);
 }
 
@@ -335,22 +338,102 @@ std::vector<bool> getTrueVector() {
 }
 
 void Hand::setTrueVector() { positions = getTrueVector(); }
+void Hand::scoreCard(Deck &deck, Draw &draw, int &money, PlayingCard card,
+                     int index, bool repeat) {
 
-void Hand::scoreCards() {
+  int rankValue;
+  Seal seal = card.getSeal();
+  Enhancement enh = card.getEnhancement();
+  Edition edi = card.getEdition();
+  int score = card.getScore();
+  int temp = positions[index];
+  int chips = 0;
+  int mult = 0;
+
+  chips += score;
+
+  if (temp == 1) {
+    rankValue =
+        2 + static_cast<int>(card.getRank()); // very ugly but can not spend
+    // the time now to fix it
+  }
+  if (rankValue == 14) {
+    rankValue = 11;
+  } else if (rankValue > 10) {
+    rankValue = 10;
+  }
+
+  switch (edi) {
+  case Edition::NO_EDITION_CARD:
+    break;
+  case Edition::FOIL:
+    chips += 50;
+    break;
+  case Edition::POLYCHROME:
+    points.multiplier *= 1.5;
+    break;
+  case Edition::HOLOGRAPHIC:
+    mult += 10;
+    break;
+  }
+
+  int roll;
+
+  switch (enh) {
+  case Enhancement::NO_ENHANCEMENT:
+    break;
+  case Enhancement::BONUS:
+    chips += 30;
+    break;
+  case Enhancement::MULT:
+    mult += 4;
+    break;
+  case Enhancement::GLASS:
+    points.multiplier *= 2;
+    roll = std::rand() % 4;
+    if (roll == 0) {
+      deck.removeCard(card.getID());
+    }
+    break;
+  case Enhancement::LUCKY:
+    roll = std::rand() % 15;
+    if (roll < 5) {
+      mult += 20;
+    }
+    roll = std::rand() % 15;
+    if (roll == 0) {
+      money += 20;
+    }
+    break;
+  default:
+    break;
+  }
+
+  // Need to add the purple and blue seals in some way, would require
+  // implementing planets cards/hand levels and tarot cards but not in the plans
+  // currently
+  switch (seal) {
+  case Seal::RED_SEAL:
+    if (repeat) {
+      scoreCard(deck, draw, money, card, index,
+                false); // set to false to not trigger red seal twice
+      repeat = false;   // unecessary but making sure that nothing funky happens
+                        // down the line
+    }
+    break;
+  case Seal::GOLD_SEAL:
+    money += 3;
+    break;
+  default:
+    break;
+  }
+
+  points.chips += rankValue;
+  points.multiplier += mult;
+}
+void Hand::scoreCards(Deck &deck, Draw &draw, int &money) {
   int rankValue;
   for (int i = 0; i < 5; i++) {
-    rankValue = 0;
-    int temp = positions[i];
-    if (temp == 1) {
-      rankValue = 2 + static_cast<int>(
-                          cards[i].getRank()); // very ugly but can not spend
-                                               // the time now to fix it
-    }
-    if (rankValue == 14) {
-      rankValue = 11;
-    } else if (rankValue > 10) {
-      rankValue = 10;
-    }
-    points.chips += rankValue;
+    scoreCard(deck, draw, money, cards[i], i, true);
   }
 }
