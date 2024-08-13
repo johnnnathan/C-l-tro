@@ -47,10 +47,11 @@ void Draw::drawCard(Deck &deck) {
   std::cout << FULL_DRAW << std::endl;
 }
 std::pair<HandType, Points> Draw::play(const std::array<PlayingCard, 5> &cards,
-                                       Deck &deck, int &money) {
+                                       JokerDeck jdeck, Deck &deck,
+                                       int &money) {
   Draw draw = *this;
   Hand hand(cards, 0, 0);
-  return hand.evaluate(deck, draw, money);
+  return hand.evaluate(deck, jdeck, draw, money);
 }
 
 void Draw::drawTillFull(Deck &deck) {

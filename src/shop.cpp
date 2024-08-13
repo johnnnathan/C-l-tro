@@ -16,8 +16,7 @@ Shop::Shop() {
 
   // Initialize the jokers array
   for (auto &joker : jokers) {
-    Joker jokerElement(0, 0, 0,
-                       Effect{}); // Initialize Joker with default values
+    Joker jokerElement;
     joker.first = &jokerElement;
     joker.second = 0; // Default quantity to 0
   }
@@ -45,43 +44,11 @@ void Shop::setPlayingCards() {
 // placeholder method, will probably have to create a database or save them some
 // other way, txt could be an option
 void Shop::setJokers() {
-  // Joker 1: Adds chips when activated, no filter applied
-  Effect effect1;
-  effect1.operation = Operation::ADD;
-  effect1.target = Target::CHIPS;
-  effect1.filter = Filter::NONE;
-  effect1.quantity = 10; // Adds 10 chips
+  Joker joker1, joker2, joker3;
 
-  Joker joker1(1, 2, 1, effect1); // Activation code 1, rarity 2, edition 1
-  joker1.setName("Chip Master");
-  joker1.setDescription("Adds 10 chips to your total when activated.");
-
-  // Joker 2: Multiplies money on even cards
-  Effect effect2;
-  effect2.operation = Operation::MULTIPLY;
-  effect2.target = Target::MONEY;
-  effect2.filter = Filter::EVEN;
-  effect2.quantity = 2; // Multiplies money by 2
-
-  Joker joker2(2, 3, 2, effect2); // Activation code 2, rarity 3, edition 2
-  joker2.setName("Even Multiplier");
-  joker2.setDescription("Doubles your money when an even card is drawn.");
-
-  // Joker 3: Gives a score for face cards
-  Effect effect3;
-  effect3.operation = Operation::GIVE_SCORE;
-  effect3.target = Target::CHIPS;
-  effect3.filter = Filter::FACE;
-  effect3.quantity = 5; // Gives 5 points for face cards
-
-  Joker joker3(3, 1, 3, effect3); // Activation code 3, rarity 1, edition 3
-  joker3.setName("Face Card Scorer");
-  joker3.setDescription("Gives 5 points for each face card (J, Q, K) drawn.");
-
-  // Assign Jokers to the array with their associated quantity
-  jokers[0] = std::make_pair(&joker1, 1); // 1 quantity of joker1
-  jokers[1] = std::make_pair(&joker2, 1); // 1 quantity of joker2
-  jokers[2] = std::make_pair(&joker3, 1); // 1 quantity of joker3
+  jokers[0] = std::make_pair(&joker1, joker1.getRarity() * 2);
+  jokers[1] = std::make_pair(&joker2, joker2.getRarity() * 2);
+  jokers[2] = std::make_pair(&joker3, joker3.getRarity() * 2);
 }
 void Shop::setSeal() {
   int randomIndex = std::rand() % 5;

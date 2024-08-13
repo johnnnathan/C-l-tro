@@ -2,7 +2,9 @@
 #include "discardPile.h"
 #include "draw.h"
 #include "hand.h"
+#include "joker.h"
 #include "jokerDeck.h"
+#include "jokerEffectProperties.h"
 #include "playingCard.h"
 #include "shop.h"
 #include "tools.h"
@@ -99,7 +101,8 @@ int calculateStake(int &level) {
   return std::max(stake, baseStake);
 }
 
-bool playStage(int stakeHeight, int &level, Deck &deck, int &money) {
+bool playStage(int stakeHeight, int &level, Deck &deck, int &money,
+               JokerDeck jdeck) {
 
   DiscardPile discardPile(52);
   Draw draw;
@@ -138,7 +141,8 @@ bool playStage(int stakeHeight, int &level, Deck &deck, int &money) {
     }
     Hand hand(cards, 0, 0);
 
-    std::pair<HandType, Points> evaluation = hand.evaluate(deck, draw, money);
+    std::pair<HandType, Points> evaluation =
+        hand.evaluate(deck, jdeck, draw, money);
     HandType type = evaluation.first;
     Points points = evaluation.second;
     int chips = points.chips;
@@ -159,6 +163,8 @@ bool playStage(int stakeHeight, int &level, Deck &deck, int &money) {
 }
 
 int main() {
+  Joker joker;
+  joker.toString();
   int something = 1;
   int level = 1;
   bool keepPlaying{true};
@@ -174,7 +180,10 @@ int main() {
   while (keepPlaying) {
     int stake = calculateStake(level);
     deck.toString();
-    keepPlaying = playStage(stake, level, deck, money);
+    keepPlaying = playStage(stake, level, deck, money, jdeck);
+    if (!keepPlaying) {
+      return 0;
+    }
     level++;
     shop.buy(money, jdeck, deck);
   }

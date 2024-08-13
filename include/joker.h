@@ -52,6 +52,11 @@ private:
   int getFilterType();
   bool evaluateFilter(PlayingCard *card, int type);
 
+  std::string generateName(Operation operation, Target target, int rarity);
+
+  std::string generateDescription(Operation operation, Target target,
+                                  Filter filter, int quantity);
+
 public:
   void operate(PlayingCard *card, int &money, Points &points, Deck &deck);
   void set(int max, int value, int shift, uint8_t mask);
@@ -73,6 +78,7 @@ public:
   std::string getEffect();
 
   Joker(int activation_code, int rarity, int edition, Effect effectTBA);
+  Joker();
 };
 
 #endif // JOKER_H

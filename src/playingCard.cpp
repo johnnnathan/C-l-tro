@@ -120,7 +120,7 @@ void PlayingCard::setSuit(Suit suit) {
 }
 
 void PlayingCard::setRank(Rank rank) {
-  set(13, static_cast<int8_t>(rank), RANK_SHIFT, BIT_4MASK);
+  set(13, static_cast<int8_t>(rank) - 2, RANK_SHIFT, BIT_4MASK);
 }
 
 void PlayingCard::setEnhancement(Enhancement enhancement) {

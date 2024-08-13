@@ -4,6 +4,7 @@
 #include "deck.h"
 #include "draw.h"
 #include "handTypes.h"
+#include "jokerDeck.h"
 #include "playingCard.h"
 #include "points.h"
 #include <array>
@@ -32,11 +33,12 @@ private:
   bool isHighStraight() const;
   void findPairs();
   void setTrueVector();
-  void scoreCards(Deck &deck, Draw &draw, int &money);
+  void scoreJokers(Deck &deck, int &money, JokerDeck &jdeck, int ON_TYPE);
+  void scoreCards(Deck &deck, Draw &draw, int &money, JokerDeck &jdeck);
   void findRankOccurences(int (&ranks)[13], int cardCount);
   void findCommonPairs(std::pair<int, int> &pairCount, int (&ranks)[13]);
-  void scoreCard(Deck &deck, Draw &draw, int &money, PlayingCard card,
-                 int index, bool repeat);
+  void scoreCard(Deck &deck, JokerDeck &jdeck, Draw &draw, int &money,
+                 PlayingCard card, int index, bool repeat);
   std::vector<bool> determinePositions(std::pair<int, int> &pairCount,
                                        int cardCount, int (&ranks)[13]);
 
@@ -49,7 +51,8 @@ public:
 
   std::vector<bool> getPositions() const;
   std::pair<int, int> getPairTypes() const;
-  std::pair<HandType, Points> evaluate(Deck &deck, Draw &draw, int &money);
+  std::pair<HandType, Points> evaluate(Deck &deck, JokerDeck &jdeck, Draw &draw,
+                                       int &money);
 };
 
 #endif // !HAND_H

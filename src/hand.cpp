@@ -3,6 +3,8 @@
 #include "deck.h"
 #include "draw.h"
 #include "handTypes.h"
+#include "joker.h"
+#include "jokerDeck.h"
 #include "points.h"
 #include "tools.h"
 #include <array>
@@ -168,7 +170,7 @@ bool Hand::isRoyalFlush() const { return isHighStraight() && isFlush(); }
 bool Hand::isHighStraight() const {
 
   std::array<int, 5> intArray = toIntArray();
-  std::array<int, 5> wanted = {0, 9, 10, 11, 12};
+  std::array<int, 5> wanted = {8, 9, 10, 11, 12};
   return areIn(intArray, wanted);
 }
 
@@ -219,8 +221,7 @@ std::vector<bool> Hand::determinePositions(std::pair<int, int> &pairCount,
   int max{0};
   int maxIndex{0};
 
-  if (pairCount.first == 1) {
-    // High card scenario
+  if (pairCount.first == 1) { // High card scenario
     for (int i = 0; i < cardCount; i++) {
       int currentRank = static_cast<int>(cards[i].getRank());
       if (max < currentRank) {
@@ -257,15 +258,12 @@ void Hand::findPairs() {
   findCommonPairs(pairCount, ranks);
 
   positions = determinePositions(pairCount, cardCount, ranks);
-  for (int i = 0; i < 5; i++) {
-    std::cout << positions[i] << std::endl;
-  }
-  std::cout << std::flush;
 
   this->pairTypes = pairCount;
 }
 
-std::pair<HandType, Points> Hand::evaluate(Deck &deck, Draw &draw, int &money) {
+std::pair<HandType, Points> Hand::evaluate(Deck &deck, JokerDeck &jdeck,
+                                           Draw &draw, int &money) {
   if (cards.size() != 5 || isIn(toIntArray(), 0)) {
     printf("Not a 5 card hand, High_Card Awarded");
     setPoints(points, 1, 5);
@@ -325,7 +323,7 @@ std::pair<HandType, Points> Hand::evaluate(Deck &deck, Draw &draw, int &money) {
     return std::make_pair(HandType::ERROR, points);
   }
 
-  scoreCards(deck, draw, money);
+  scoreCards(deck, draw, money, jdeck);
   return std::make_pair(type, points);
 }
 
@@ -338,8 +336,8 @@ std::vector<bool> getTrueVector() {
 }
 
 void Hand::setTrueVector() { positions = getTrueVector(); }
-void Hand::scoreCard(Deck &deck, Draw &draw, int &money, PlayingCard card,
-                     int index, bool repeat) {
+void Hand::scoreCard(Deck &deck, JokerDeck &jdeck, Draw &draw, int &money,
+                     PlayingCard card, int index, bool repeat) {
 
   int rankValue;
   Seal seal = card.getSeal();
@@ -349,6 +347,11 @@ void Hand::scoreCard(Deck &deck, Draw &draw, int &money, PlayingCard card,
   int temp = positions[index];
   int chips = 0;
   int mult = 0;
+
+  int pos = positions[index];
+  if (pos == 0) {
+    return;
+  }
 
   chips += score;
 
@@ -412,10 +415,11 @@ void Hand::scoreCard(Deck &deck, Draw &draw, int &money, PlayingCard card,
   // Need to add the purple and blue seals in some way, would require
   // implementing planets cards/hand levels and tarot cards but not in the plans
   // currently
+  scoreJokers(deck, money, jdeck, ON_SCORED);
   switch (seal) {
   case Seal::RED_SEAL:
     if (repeat) {
-      scoreCard(deck, draw, money, card, index,
+      scoreCard(deck, jdeck, draw, money, card, index,
                 false); // set to false to not trigger red seal twice
       repeat = false;   // unecessary but making sure that nothing funky happens
                         // down the line
@@ -431,9 +435,16 @@ void Hand::scoreCard(Deck &deck, Draw &draw, int &money, PlayingCard card,
   points.chips += rankValue;
   points.multiplier += mult;
 }
-void Hand::scoreCards(Deck &deck, Draw &draw, int &money) {
-  int rankValue;
+void Hand::scoreCards(Deck &deck, Draw &draw, int &money, JokerDeck &jdeck) {
+  scoreJokers(deck, money, jdeck, ON_HELD);
   for (int i = 0; i < 5; i++) {
-    scoreCard(deck, draw, money, cards[i], i, true);
+    scoreCard(deck, jdeck, draw, money, cards[i], i, true);
+  }
+}
+void Hand::scoreJokers(Deck &deck, int &money, JokerDeck &jdeck, int ON_TYPE) {
+  for (int i = 0; i < jdeck.getDeckSize(); i++) {
+    if (jdeck.get(i) != nullptr && jdeck.get(i)->getActivatedOn() == ON_TYPE) {
+      jdeck.get(i)->operate(nullptr, money, points, deck);
+    }
   }
 }

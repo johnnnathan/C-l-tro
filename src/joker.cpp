@@ -17,6 +17,92 @@ Joker::Joker(int activation_code, int rarity, int edition, Effect effectTBA)
   setEffect(effectTBA);
 }
 
+Joker::Joker()
+    : data(0), effect({Operation::ADD, Target::NONE, Filter::NONE, 0}) {
+
+  // Randomly generate rarity, edition, and activation code
+  int rarity = rand() % (MAX_2BIT + 1);
+  int edition = rand() % (MAX_3BIT + 1);
+  int activation_code = rand() % (MAX_2BIT + 1);
+
+  // Set Joker attributes
+  setRarity(rarity);
+  setEdition(edition);
+  setActivateOn(activation_code);
+
+  // Name generation
+  std::string name;
+
+  switch (rarity) {
+  case COMMON:
+    name += "Mysterious ";
+    break;
+  case UNCOMMON:
+    name += "Arcane ";
+    break;
+  case RARE:
+    name += "Ethereal ";
+    break;
+  case LEGENDARY:
+    name += "Mythic ";
+    break;
+  }
+
+  switch (edition) {
+  case NO_EDITION:
+    name += "";
+    break;
+  case FOIL:
+    name += "of the Gilded ";
+    break;
+  case HOLOGRAPHIC:
+    name += "of the Phantasmal ";
+    break;
+  case POLYCHROME:
+    name += "of the Prism ";
+    break;
+  case NEGATIVE:
+    name += "of the Shadow ";
+    break;
+  }
+
+  switch (activation_code) {
+  case ON_PLAYED:
+    name += "Harbinger";
+    break;
+  case ON_SCORED:
+    name += "Guardian";
+    break;
+  case ON_HELD:
+    name += "Warden";
+    break;
+  case ON_INDEPENDENT:
+    name += "Wanderer";
+    break;
+  }
+
+  setName(name);
+
+  // Description generation
+  std::string description = "This Joker is known as the " + name + ".";
+  description += " Its powers are invoked ";
+  switch (activation_code) {
+  case ON_PLAYED:
+    description += "when played.";
+    break;
+  case ON_SCORED:
+    description += "when points are scored.";
+    break;
+  case ON_HELD:
+    description += "when held in hand.";
+    break;
+  case ON_INDEPENDENT:
+    description += "independently of other actions.";
+    break;
+  }
+  setDescription(description);
+}
+
 /*
 
 Note: This method is pretty much the implementation of the Interface Pattern,
@@ -159,9 +245,61 @@ void Joker::operate(PlayingCard *card, int &money, Points &points, Deck &deck) {
 
 /* toString implementation for Joker object */
 void Joker::toString() {
-  std::cout << "Joker [Activation Code: " << getActivatedOn()
-            << ", Rarity: " << getRarity() << ", Edition: " << getEdition()
-            << ", Data: " << static_cast<int>(data)
+  std::string rarity_str;
+  switch (getRarity()) {
+  case COMMON:
+    rarity_str = "COMMON";
+    break;
+  case UNCOMMON:
+    rarity_str = "UNCOMMON";
+    break;
+  case RARE:
+    rarity_str = "RARE";
+    break;
+  case LEGENDARY:
+    rarity_str = "LEGENDARY";
+    break;
+  }
+
+  std::string activation_str;
+  switch (getActivatedOn()) {
+  case ON_PLAYED:
+    activation_str = "ON_PLAYED";
+    break;
+  case ON_SCORED:
+    activation_str = "ON_SCORED";
+    break;
+  case ON_HELD:
+    activation_str = "ON_HELD";
+    break;
+  case ON_INDEPENDENT:
+    activation_str = "ON_INDEPENDENT";
+    break;
+  }
+
+  std::string edition_str;
+  switch (getEdition()) {
+  case NO_EDITION:
+    edition_str = "NO_EDITION";
+    break;
+  case FOIL:
+    edition_str = "FOIL";
+    break;
+  case HOLOGRAPHIC:
+    edition_str = "HOLOGRAPHIC";
+    break;
+  case POLYCHROME:
+    edition_str = "POLYCHROME";
+    break;
+  case NEGATIVE:
+    edition_str = "NEGATIVE";
+    break;
+  }
+
+  std::cout << getName() << " Activation Code: " << activation_str << " ("
+            << getActivatedOn() << ")" << ", Rarity: " << rarity_str << " ("
+            << getRarity() << ")" << ", Edition: " << edition_str << " ("
+            << getEdition() << ")" << ", Data: " << static_cast<int>(data)
             << ", Description: " << getDescription()
             << ", Effect : " << getEffect() << "]\n";
 }

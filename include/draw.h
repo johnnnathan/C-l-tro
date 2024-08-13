@@ -3,6 +3,7 @@
 
 #include "discardPile.h"
 #include "handTypes.h"
+#include "jokerDeck.h"
 #include "playingCard.h"
 #include "points.h"
 
@@ -24,7 +25,7 @@ public:
   void drawTillFull(Deck &deck);
   void discardCards(std::array<int, 5> IDs, DiscardPile &pile, Deck &deck);
   std::pair<HandType, Points> play(const std::array<PlayingCard, 5> &cards,
-                                   Deck &deck, int &money);
+                                   JokerDeck jdeck, Deck &deck, int &money);
   PlayingCard *get(int x);
 };
 
