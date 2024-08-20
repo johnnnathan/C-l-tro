@@ -4,7 +4,6 @@
 #include "hand.h"
 #include "joker.h"
 #include "jokerDeck.h"
-#include "jokerEffectProperties.h"
 #include "playingCard.h"
 #include "shop.h"
 #include "tools.h"
@@ -154,6 +153,7 @@ bool playStage(int stakeHeight, int &level, Deck &deck, int &money,
 
   if (totalScore >= stakeHeight) {
     printf("Congratulations, you beat level %d!!!\n", level);
+    money += 3 + discards;
     return true;
   }
   if (hands == 0) {
